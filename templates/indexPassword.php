@@ -4,7 +4,7 @@
 	<h2>Gérez vos défis et rencontrez vos équipiers</h2>
 	
 	<div class="col-xs-12 col-md-6 col-md-offset-3">	
-		<form action="<?php secho($this->generateUrl('connexion', 'checkPassword')); ?>" method="POST" class="col-xs-10 col-xs-offset-1 ajax-form" target="<?php secho($this->generateUrl('groups')); ?>" target-id="groups">
+		<form action="<?php secho($this->generateUrl('connexion', 'checkPassword')); ?>" method="POST" class="col-xs-10 col-xs-offset-1 ajax-form" target="<?php secho($this->generateUrl('challenges')); ?>" target-id="challenges">
 
 			<div class="input-group">
 				<input name="password" id="password" class="form-control input-lg" placeholder="Votre mot de passe" type="password">
