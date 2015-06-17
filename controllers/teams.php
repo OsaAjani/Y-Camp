@@ -9,15 +9,34 @@ class teams extends Controller
 	 */	
 	public function byDefault ()
 	{
+		$points = 0;
+
 		global $db;
 
 		$teams = $db->getFromTableWhere('teams', ['id' => $_SESSION['user']['team_id']]);
 		$team = $teams[0];
 
+		$challenges = $db->getFromTableWhere('challenges');
+		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id']]);
+
+		foreach ($challenges as &$challenge)
+		{
+			$challenge['is_valid'] = false;
+		
+			foreach ($validChallenges as $validChallenge)
+			{
+				if ($challenge['id'] == $validChallenge['challenge_id'])
+				{
+					$points += $challenge['points'];
+				}
+			}
+		}
+
 		$users = $db->getFromTableWhere('users', ['team_id' => $_SESSION['user']['team_id']]);
 		return $this->render("teams", array(
 			'team' => $team,
-			'users' => $users,	
+			'users' => $users,
+			'points' => $points,
 		));
 	}
 

@@ -1,6 +1,6 @@
 <div id="teams" class="tile">
 	<span class="go-back-arrow control ion-ios-arrow-thin-left" target="<?php secho($this->generateUrl('challenges')); ?>" target-id="challenges" animation="slideInLeft" ></span>
-	<h1><?php secho($team['name']); ?></h1>
+	<h1><?php secho($team['name']); ?> - <?php secho($points); ?> points</h1>
 
 	<div class="icons-top">
 		<span class="control ion-ios-gear-outline" target="<?php secho($this->generateUrl('teams', 'edit')); ?>" target-id="teams-edit"></span>
