@@ -5,7 +5,7 @@
 <div id="first-container" class="fluid-container full-page">
 	<?php $this->email(); ?>
 	<div id="spinner">
-		<img src="<?php echo HTTP_PWD_IMG; ?>spinner.gif" alt="Chargement en cours"/>
+		<span class="ion ion-load-c  spinner-size"></span>
 	</div>
 </div>
 <?php
