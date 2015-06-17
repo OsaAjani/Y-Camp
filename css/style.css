@@ -461,9 +461,9 @@ a, a:focus, a:hover, a:active
 }
 
 /********************/
-/* GROUPS EDIT PAGE */
+/* TEAMS EDIT PAGE */
 /********************/
-#groups-edit
+#teams-edit
 {
 	background-color: #89C4F4;
 }
@@ -471,12 +471,13 @@ a, a:focus, a:hover, a:active
 /**************/
 /* USERS PAGE */
 /**************/
-#users
+#teams
 {
 	background-color: #9b59b6;
 }
 
-#infos-container-users-user
+#infos-container-users-user, 
+#infos-container-teams-user
 {
 	color: #9b59b6;
 	font-size: 22px;
