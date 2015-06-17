@@ -373,12 +373,21 @@ a, a:focus, a:hover, a:active
 /***************/
 /* GROUPS PAGE */
 /***************/
-#groups
+#challenges
 {
 	background-color: #2980b9;
 }
 
 #icon-user { font-size: 45px; }
+
+#infos-container-podium
+{
+	color: #2980b9;
+	font-size: 19px;
+	position: absolute;
+	top: -29px;
+	left: -9px;
+}
 
 #infos-container-groups-eye
 {

@@ -116,10 +116,10 @@ jQuery(document).ready(function()
 	if (is_connected)
 	{
 		jQuery('#spinner').show();
-		jQuery.get(HTTP_PWD + 'groups', function (data)
+		jQuery.get(HTTP_PWD + 'challenges', function (data)
 		{
 			jQuery('#first-container').prepend(data);
-			changeTile(jQuery('#groups'), 'slideInRight');	
+			changeTile(jQuery('#challenges'), 'slideInRight');	
 		}).done(function ()
 		{
 			jQuery('#spinner').hide();
