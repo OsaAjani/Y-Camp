@@ -398,15 +398,15 @@ a, a:focus, a:hover, a:active
 	left: -10px;
 }
 
-/********************/
-/* GROUPS SHOW PAGE */
-/********************/
-#groups-show
+/************************/
+/* CHALLENGE PHOTO PAGE */
+/************************/
+#challengesphotos
 {
 	background-color: #1abc9c;
 }
 
-#infos-container-passwords-lock
+#infos-container-challengesphotos-camera
 {
 	color: #1abc9c;
 	font-size: 19px;
@@ -415,12 +415,41 @@ a, a:focus, a:hover, a:active
 	left: -7px;
 }
 
-/*******************/
-/* GROUPS ADD PAGE */
-/*******************/
-#groups-add
+/*****************************/
+/* CHALLENGE PHOTO SHOW PAGE */
+/*****************************/
+#challengesphotos-show
 {
 	background-color: #e74c3c;
+}
+
+#photo-button-container
+{
+	text-align: center;
+	position: relative;
+}
+
+#photo-button-container-container
+{
+	position: relative;
+	left: -75px;
+}
+
+#photo-button-circle
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 150px;
+}
+
+#photo-button-camera
+{
+	position: absolute;
+	top: 33px;
+	left: 25px;
+	font-size: 95px;
+	color: #e74c3c;
 }
 
 /**********************/
