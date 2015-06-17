@@ -7,13 +7,9 @@
 	</div>
 	
 	<?php if (!$challenge['valid']) { ?>
-		<div id="photo-button-container">
-			<span id="photo-button-container-container">
-				<span class="ion-ios-circle-filled" id="photo-button-circle"></span>
-				<span class="ion-ios-camera" id="photo-button-camera" ></span>
-				<div class="clearfix"></div>
-			</span>
-		</div>
+	<div class="text-center">
+		<span id="photo-button-camera" class="ion-ios-camera-outline carre" ></span>
+	</div>
 	<?php } else { ?>
 		<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 infos-container">
 			<span class="ion-ios-circle-filled infos-container-round" ></span>
