@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS challenges
 	id INT NOT NULL AUTO_INCREMENT,
 	kind INT NOT NULL, /* 0 = object, 1 = picture */
 	title VARCHAR(500) NOT NULL,
+	points INT NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE (title)
 );
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS users
 );
 
 -- Create table of validates_challenges
-CREATE TABLE IF NOT EXISTS validates_challenges
+CREATE TABLE IF NOT EXISTS validated_challenges
 (
 	id INT NOT NULL AUTO_INCREMENT,
 	team_id INT NOT NULL,

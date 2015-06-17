@@ -249,4 +249,44 @@
 			$data = base64_decode($data);
 			return trim(mcrypt_decrypt($algo, $key, $data, $mode, $iv));
 		}
+
+		/**
+		 * Cette fonction permet de limiter la taille d'un texte en le complétant avec des ...
+		 * @param string $text : Le texte à limiter
+		 * @param int $taille : La taille limite (par défaut 255)
+		 */
+		public static function ellips($text, $taille = 255)
+		{
+			if (mb_strlen($text) > $taille - 3)
+			{
+				return mb_substr($text, 0, $taille - 3) . '...';
+			}
+			return $text;
+		}
+
+		/**
+		 * Cette fonction permet de limiter l'affichage à un nombre défini de mots et un maximum de caractères
+		 * @param string $text : Le texte à limiter
+		 * @param int $nbWords : Le nombre de mots maximum à afficher
+		 * @param int $taille : La taille limite (par défaut 255)
+		 */
+		public static function limitWords($text, $nbWords, $taille = 255)
+		{
+			$arrayText = explode(' ', $text);
+			$concatAfter = '';
+
+			if (count($arrayText > 4))
+			{
+				$concatAfter = '...';
+			}
+
+			$text = self::ellips(implode(' ', array_slice($arrayText, 0, 4)), $taille);
+
+			if (mb_strcut($text, mb_strlen($text) - 3) != '...')
+			{
+				$text = $text . $concatAfter;
+			}
+			
+			return $text;
+		}
 	}
