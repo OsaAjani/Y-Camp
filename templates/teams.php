@@ -14,7 +14,7 @@
 			<span class="ion-ios-person" id="infos-container-teams-user" ></span>
 			<?php foreach ($users as $user) { ?>
 				<div class="info">
-					<span class="control col-xs-12" target="<?php secho($this->generateUrl('users', 'show', [$user['id']])); ?>" target-id="users-show"><?php secho($user['firstname']); ?></span>
+					<span class="control col-xs-12" target="<?php secho($this->generateUrl('users', 'show', [$user['id']])); ?>" target-id="users-show"><?php secho($user['firstname']." ".$user['lastname']); ?></span>
 				</div>
 				<div class="clearfix"></div>
 			<?php } ?>
