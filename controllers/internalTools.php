@@ -46,6 +46,20 @@
 		}
 
 		/**
+		 * Cette fonction permet de cleaner un chemin contre les LFI, RFI, null bytes, etc.
+		 * @param string $path : Le chemin à nettoyer
+		 * @return string : Le chemin propre
+		 */
+		public static function sanitizeFileName($path)
+		{
+			$path = str_replace('..', '', $path);
+			$path = str_replace(chr(0), '', $path);
+			$path = str_replace('/', '', $path);
+			$path = str_replace(':', '', $path);
+			return $path;
+		}
+
+		/**
 		 * Cette fonction vérifie si un mot de passe correspond à des critères de sécurités fixés
 		 * @param string $password : Le password à vérifier
 		 * @param int $length : La taille du mot de passe
@@ -304,7 +318,7 @@
 				$name = sha1(rand(0, 100) . uniqid());
 			}
 
-			$name = self::sanitizeFileName($_POST['name']);
+			$name = self::sanitizeFileName($name);
 
 			$mediaInfo = new finfo(FILEINFO_MIME_TYPE);
 			$mediaMimeType = $mediaInfo->file($media['tmp_name']);

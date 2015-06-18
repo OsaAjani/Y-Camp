@@ -139,13 +139,16 @@ jQuery(document).ready(function()
 
 	jQuery('#first-container').on('submit', '.ajax-form', function (e)
 	{
-		var form = jQuery(this);
 		e.preventDefault();
+		var form = jQuery(this);
+		var formData = new FormData(form[0]);
 		jQuery('#spinner').show();
 		jQuery.ajax({
 			url: form.attr('action'),
 			type: form.attr('method'),
-			data: form.serializeArray(),
+			data: formData,
+			contentType: false,
+			processData: false,
 			dataType: "json",
 			success: function (data)
 			{
@@ -168,6 +171,12 @@ jQuery(document).ready(function()
 		{
 			jQuery('#spinner').hide();
 		});
+	});
+
+	jQuery('#first-container').on('change', '#photo-input', function (e)
+	{
+		e.preventDefault();
+		jQuery(this).parent('form').submit();
 	});
 });
 
