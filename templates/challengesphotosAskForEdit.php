@@ -1,8 +1,10 @@
-<div class="text-center">
-	<label for="photo-input">
-		<span id="photo-button-camera" class="ion-ios-camera-outline" ></span>
-	</label>
+<div class="challengesphotos-img-container img-edit-container col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1" style="background-image: url('<?php secho($challenge['photo']);?>');">
+	<div class="filter"></div>
+	<div class="challengesphotos-img-content">
+		<div class="challengesphotos-img-text">
+			Modifier cette image ?
+		</div>
+
+		<span class="control valid-photo-button ion-ios-gear-outline" target="<?php secho($this->generateUrl('challengesphotos', 'show', [$challenge['id'], 1])); ?>" target-id="challengesphotos-show"></span>
+	</div>
 </div>
-<form class="ajax-form" action="<?php secho($this->generateUrl('challengesphotos', 'valid', [$challenge['id'], $_SESSION['csrf']])); ?>" method="POST" id="photo-add-form" enctype="multipart/form-data" target="<?php secho($this->generateUrl('challengesphotos', 'confirmvalid', [$challenge['id'], $_SESSION['csrf']])); ?>" target-id="challengesphotos-confirmvalid">
-	<input id="photo-input" type="file" name="photo" accept="image/*;capture=camera" />
-</form>

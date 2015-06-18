@@ -407,6 +407,12 @@ a, a:focus, a:hover, a:active
 	left: -10px;
 }
 
+/* CHALLENGES */
+.check-valid-challenge
+{
+	margin-right: 15px;
+}
+
 /************************/
 /* CHALLENGE PHOTO PAGE */
 /************************/
@@ -477,6 +483,12 @@ a, a:focus, a:hover, a:active
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
+	margin-bottom: 5vh;
+}
+
+.challengesphotos-img-container.img-edit-container
+{
+	margin-top: 0;
 }
 
 .challengesphotos-img-container .filter
@@ -487,7 +499,7 @@ a, a:focus, a:hover, a:active
 	left: 0;
 	right: 0;
 	background: #000;
-	opacity: 0.6;
+	opacity: 0.8;
 	z-index: 0;
 	background-image: url('../img/background-filter.png');
 }
