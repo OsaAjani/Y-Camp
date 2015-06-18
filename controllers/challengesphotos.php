@@ -23,6 +23,7 @@ class challengesphotos extends Controller
 		$challenges = $db->getFromTableWhere('challenges', ['kind' => 1]);
 		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id']]);
 
+		$nbValidChallenges = 0;
 		foreach ($challenges as &$challenge)
 		{
 			$challenge['is_valid'] = false;
@@ -31,6 +32,7 @@ class challengesphotos extends Controller
 			{
 				if ($challenge['id'] == $validChallenge['challenge_id'])
 				{
+					$nbValidChallenges ++;
 					$challenge['is_valid'] = true;
 					$challenge['photo'] = $validChallenge['document'];
 				}
@@ -39,15 +41,16 @@ class challengesphotos extends Controller
 
 		return $this->render("challengesphotos", array(
 			'challenges' => $challenges,
-			'validChallenges' => $validChallenges,
+			'nbValidChallenges' => $nbValidChallenges,
 		));
 	}
 
 	/**
 	 * Cette fonction permet d'afficher la page d'un défi photo
 	 * @param int $challengeId : Le numéro du défi
+	 * @param boolean $forceUpload : Si il faut forcer l'upload ou nom (par défaut false => pas de forçage)
 	 */
-	public function show ($challengeId)
+	public function show ($challengeId, $forceUpload = false)
 	{
 		global $db;
 
@@ -63,12 +66,12 @@ class challengesphotos extends Controller
 		if ($validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id'], 'challenge_id' => $challengeId]))
 		{
 			$challenge['valid'] = true;
-			$challenge['photo'] = $validChallenges[0]['document'];
+			$challenge['photo'] = HTTP_PWD_IMG . 'challenges/' . $validChallenges[0]['document'];
 		}
-var_dump($validChallenges);
 
 		return $this->render('challengesphotosShow', array(
 			'challenge' => $challenge,
+			'forceUpload' => $forceUpload
 		));
 	}
 
@@ -183,12 +186,22 @@ var_dump($validChallenges);
 			return false;
 		}
 
-		if (rename(PWD_IMG . 'tmp_challenges/' . $_SESSION['tmp_photos'][$challengeId], PWD_IMG . 'challenges/' . $_SESSION['tmp_photos'][$challengeId]))
+		if (!rename(PWD_IMG . 'tmp_challenges/' . $_SESSION['tmp_photos'][$challengeId], PWD_IMG . 'challenges/' . $_SESSION['tmp_photos'][$challengeId]))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Impossible d\'enregistrer la photo.';
 			echo json_encode($result);
 			return false;
+		}
+
+		//On delete une éventuelle ancienne photo et validation
+		if ($validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id'], 'challenge_id' => $challengeId]))
+		{
+			foreach ($validChallenges as $validChallenge)
+			{
+				unlink(PWD_IMG . 'challenges/' . $validChallenge['document']);
+				$db->deleteFromTableWhere('validated_challenges', ['id' => $validChallenge['id']]);
+			}
 		}
 
 		if (!$db->insertIntoTable('validated_challenges', ['team_id' => $_SESSION['user']['team_id'], 'challenge_id' => $challengeId, 'document' => $_SESSION['tmp_photos'][$challengeId]]))

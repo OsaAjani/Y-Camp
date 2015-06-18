@@ -3,7 +3,7 @@
 	<h1>Défis Photos</h1>
 
 	<div class="icons-top">
-		<?php echo count($validChallenges); ?>/<?php echo count($challenges); ?>
+		<?php echo $nbValidChallenges . '/' . count($challenges); ?>
 	</div>
 	
 	<?php if (!count($challenges)) { ?>

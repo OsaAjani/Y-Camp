@@ -176,7 +176,13 @@ jQuery(document).ready(function()
 	jQuery('#first-container').on('change', '#photo-input', function (e)
 	{
 		e.preventDefault();
-		jQuery(this).parent('form').submit();
+		jQuery(this).parents('form').submit();
+	});
+
+	jQuery('#first-container').on('click', '#valid-photo-confirm', function (e)
+	{
+		e.preventDefault();
+		jQuery(this).parents('form').submit();
 	});
 });
 
