@@ -34,6 +34,9 @@ CREATE TABLE IF NOT EXISTS users
 	birthdate DATE NOT NULL,
 	sexe BOOLEAN NOT NULL, /* 0 = woman, 1 = man */
 	promotion VARCHAR(100) NOT NULL,
+	school VARCHAR(100) NOT NULL,
+	studies VARCHAR(255) NOT NULL,
+	city VARCHAR(255) NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE (email),
 	INDEX users_team_id (team_id),

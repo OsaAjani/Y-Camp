@@ -16,12 +16,13 @@ class users extends Controller
 			$router = new Router();
 			$router->return404();
 		}
-		$birthday = date('d/m/Y', $users[0]['birthday']);
+		$birthdate = new DateTime($users[0]['birthdate']);
+		$birthdate = $birthdate->format('d/m/Y');
 
 
-		return $this->render("users", array(
+		return $this->render("usersShow", array(
 			'user' => $users[0],
-			'birthday' => $birthday,
+			'birthdate' => $birthdate,
 		));
 	}
 }
