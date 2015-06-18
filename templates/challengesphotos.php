@@ -14,7 +14,7 @@
 			<span class="ion-ios-camera" id="infos-container-challengesphotos-camera" ></span>
 			<?php foreach ($challenges as $challenge) { ?>
 				<div class="info">
-					<span class="control col-xs-12" target="<?php secho($this->generateUrl('challengesphotos', 'show', [$challenge['id']])); ?>" target-id="challengesphotos-show"><?php secho(internalTools::limitWords($challenge['title'], 5)); ?></span>
+					<span class="control col-xs-12" target="<?php secho($this->generateUrl('challengesphotos', 'show', [$challenge['id']])); ?>" target-id="challengesphotos-show"><?php echo $challenge['valid'] ? '<span class="ion-ios-checkmark-empty check-valid-challenge"></span> ' : $challenge['points'] . ' pts - '; ?><?php secho(internalTools::limitWords($challenge['title'], 5)); ?></span>
 				</div>
 				<div class="clearfix"></div>
 			<?php } ?>

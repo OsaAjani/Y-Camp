@@ -26,14 +26,14 @@ class challengesphotos extends Controller
 		$nbValidChallenges = 0;
 		foreach ($challenges as &$challenge)
 		{
-			$challenge['is_valid'] = false;
+			$challenge['valid'] = false;
 		
 			foreach ($validChallenges as $validChallenge)
 			{
 				if ($challenge['id'] == $validChallenge['challenge_id'])
 				{
 					$nbValidChallenges ++;
-					$challenge['is_valid'] = true;
+					$challenge['valid'] = true;
 					$challenge['photo'] = $validChallenge['document'];
 				}
 			}

@@ -3,7 +3,7 @@
 	<h1><?php secho($challenge['title']); ?></h1>
 
 	<div class="icons-top">
-		<?php echo $challenge['valid'] ? 'Challenge validé' : $challenge['points'] . ' Points'; ?>
+		<?php echo $challenge['valid'] && !$forceUpload ? 'Challenge validé' : $challenge['points'] . ' Points'; ?>
 	</div>
 
 	<?php $challenge['valid'] && !$forceUpload ? $this->askForEdit($challenge) : $this->askForPhoto($challenge) ;?>
