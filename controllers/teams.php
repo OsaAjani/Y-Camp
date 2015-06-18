@@ -9,8 +9,6 @@ class teams extends Controller
 	 */	
 	public function byDefault ()
 	{
-		$points = 0;
-
 		global $db;
 
 		$teams = $db->getFromTableWhere('teams', ['id' => $_SESSION['user']['team_id']]);
@@ -19,9 +17,9 @@ class teams extends Controller
 		$challenges = $db->getFromTableWhere('challenges');
 		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id']]);
 
-		foreach ($challenges as &$challenge)
+		$points = 0;
+		foreach ($challenges as $challenge)
 		{
-			$challenge['is_valid'] = false;
 		
 			foreach ($validChallenges as $validChallenge)
 			{
@@ -94,5 +92,37 @@ class teams extends Controller
 		echo json_encode($result);
 		return true;
 	}	
+
+	public function show ($teamID)
+	{
+		global $db;
+
+		$teams = $db->getFromTableWhere('teams', ['id' => $teamID]);
+		$team = $teams[0];
+
+		$challenges = $db->getFromTableWhere('challenges');
+		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $teamID]);
+
+		$points = 0;
+		foreach ($challenges as $challenge)
+		{
+		
+			foreach ($validChallenges as $validChallenge)
+			{
+				if ($challenge['id'] == $validChallenge['challenge_id'])
+				{
+					$points += $challenge['points'];
+				}
+			}
+		}
+
+		$users = $db->getFromTableWhere('users', ['team_id' => $teamID]);
+		
+		return $this->render("teamsShow", array(
+			'team' => $team,
+			'users' => $users,
+			'points' => $points,
+		));
+	}
 
 }
