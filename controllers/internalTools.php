@@ -289,4 +289,48 @@
 			
 			return $text;
 		}
+		
+		/**
+		 * Cette fonction permet d'uploader une photo
+		 * @param string $media : La photo a uploader (sous forme de $_FILES)
+		 * @param string $destinationDirectory : Le repertoire de destination
+		 * @param string $name : Le nom à employer (par défaut random), sans l'extension
+		 * @return mixed : False en cas d'erreur, sinon le nouveau nom de la photo 
+		 */
+		public static function uploadPhoto($media, $destinationDirectory, $name = '')
+		{
+			if (!$name)
+			{
+				$name = sha1(rand(0, 100) . uniqid());
+			}
+
+			$name = self::sanitizeFileName($_POST['name']);
+
+			$mediaInfo = new finfo(FILEINFO_MIME_TYPE);
+			$mediaMimeType = $mediaInfo->file($media['tmp_name']);
+
+			//On verifie qu'il s'agit bien d'une image jpg ou png
+			if ($mediaMimeType != 'image/jpeg' && $mediaMimeType != 'image/png')
+			{
+				return false;
+			}
+
+			switch ($mediaMimeType)
+			{
+				case 'image/png' :
+					$extension = 'png';
+					break;
+				default :
+					$extension = 'jpg';
+			}			
+
+			$destinationName = $name . '.' . $extension;
+			$destination = $destinationDirectory . '/' . $destinationName;
+			if (!move_uploaded_file($media['tmp_name'], $destination))
+			{
+				return false;
+			}
+
+			return $destinationName;
+		}
 	}

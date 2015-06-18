@@ -435,6 +435,19 @@ a, a:focus, a:hover, a:active
 	line-height: 100px;
 	padding: 10px;
 	box-sizing: content-box;
+	background-color: transparent;
+	transition: all 0.4s ease-in-out 0s;
+}
+
+#photo-button-camera:hover
+{
+	cursor: pointer;
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+#photo-add-form
+{
+	display: none;
 }
 
 /**********************/

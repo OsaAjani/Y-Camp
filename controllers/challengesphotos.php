@@ -72,19 +72,12 @@ class challengesphotos extends Controller
 	}
 
 	/**
-	 * Cette fonction permet d'afficher la page d'ajout d'un groupe
-	 */
-	public function add ()
-	{
-		return $this->render('groupsAdd');
-	}
-
-	/**
-	 * Cette fonction permet d'enregistrer un nouveau password
+	 * Cette fonction permet d'enregistrer une nouvelle validation
+	 * @param $challengeId : Le numéro du défi
 	 * @param $csrf : Le jeton CSRF
-	 * @param $_POST['name'] : Le nom du groupe à ajouter
+	 * @param $_FILES[''] : Le nom du groupe à ajouter
 	 */
-	public function create ($csrf)
+	public function create ($challengeId, $csrf)
 	{
 		global $db;
 		$result = array(
@@ -100,15 +93,23 @@ class challengesphotos extends Controller
 			return false;
 		}
 
-		if (empty($_POST['name']))
+		if (empty($_FILES['photo']))
 		{
 			$result['success'] = 0;
-			$result['error'] = 'Remplissez tous les champs.';
+			$result['error'] = 'Veuillez fournir une photo.';
 			echo json_encode($result);
 			return false;
 		}
 
-		if (!$db->insertIntoTable('groups', ['name' => $_POST['name'], 'user_id' => $_SESSION['user_id']]))
+		if ($photoName = !internalTools::uploadPhoto($_FILES['photo'], PWD_IMG . 'challenges'))
+		{
+			$result['success'] = 0;
+			$result['error'] = 'Impossible d\'enregistrer la photo.';
+			echo json_encode($result);
+			return false;
+		}
+
+		if (!$db->insertIntoTable('validated_challenges', ['team_id' => $_SESSION['user']['team_id'], 'challenge_id' => $challengeId]))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Une erreur inconnue est survenue.';
