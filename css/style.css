@@ -539,9 +539,17 @@ a, a:focus, a:hover, a:active
 /********************/
 #teams-show
 {
-	background-color: #9b59b6;
+	background-color: #34495e;
 }
 
+#infos-container-teams-show-user
+{
+	color: #34495e;
+	font-size: 22px;
+	position: absolute;
+	top: -30px;
+	left: -8px;
+}
 
 /**************/
 /* TEAM PAGE */
