@@ -199,7 +199,7 @@ class challengesphotos extends Controller
 		{
 			foreach ($validChallenges as $validChallenge)
 			{
-				unlink(PWD_IMG . 'challenges/' . $validChallenge['document']);
+				@unlink(PWD_IMG . 'challenges/' . $validChallenge['document']);
 				$db->deleteFromTableWhere('validated_challenges', ['id' => $validChallenge['id']]);
 			}
 		}
