@@ -60,24 +60,25 @@ class challengesphotos extends Controller
 		$challenge = $challenges[0];
 		$challenge['valid'] = false;
 
-		if ($validChallenges = $db->getFromTableWhere('validated_challenges', ['challenge_id' => $challengeId, 'team_id' => $_SESSION['user']['team_id']]))
+		if ($validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id'], 'challenge_id' => $challengeId]))
 		{
 			$challenge['valid'] = true;
 			$challenge['photo'] = $validChallenges[0]['document'];
 		}
-		
+var_dump($validChallenges);
+
 		return $this->render('challengesphotosShow', array(
 			'challenge' => $challenge,
 		));
 	}
 
 	/**
-	 * Cette fonction permet d'enregistrer une nouvelle validation
+	 * Cette fonction permet d'ajouter une photo de façon temporaire pour une validation
 	 * @param $challengeId : Le numéro du défi
 	 * @param $csrf : Le jeton CSRF
 	 * @param $_FILES[''] : Le nom du groupe à ajouter
 	 */
-	public function create ($challengeId, $csrf)
+	public function valid ($challengeId, $csrf)
 	{
 		global $db;
 		$result = array(
@@ -101,7 +102,7 @@ class challengesphotos extends Controller
 			return false;
 		}
 
-		if (@$photoName = !internalTools::uploadPhoto($_FILES['photo'], PWD_IMG . 'challenges'))
+		if (!@$photoName = internalTools::uploadPhoto($_FILES['photo'], PWD_IMG . 'tmp_challenges'))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Impossible d\'enregistrer la photo.';
@@ -109,96 +110,56 @@ class challengesphotos extends Controller
 			return false;
 		}
 
-		if (!$db->insertIntoTable('validated_challenges', ['team_id' => $_SESSION['user']['team_id'], 'challenge_id' => $challengeId]))
+		if (!isset($_SESSION['tmp_photos']))
 		{
-			$result['success'] = 0;
-			$result['error'] = 'Une erreur inconnue est survenue.';
-			echo json_encode($result);
-			return false;
+			$_SESSION['tmp_photos'] = array();
 		}
+
+		$_SESSION['tmp_photos'][$challengeId] = $photoName;
 
 		echo json_encode($result);
 		return true;
 	}
 
 	/**
-	 * Cette fonction retourne la page de validation de suppresion d'un groupe
-	 * @param int $groupId : L'id du groupe à supprimer
-	 */
-	public function delete ($groupId)
-	{
-		global $db;
-
-		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId]))
-		{
-			$router = new Router();
-			$router->return404();
-		}
-		
-		return $this->render('groupsDelete', array(
-			'group' => $groups[0],
-		));
-	}
-
-	/**
-	 * Cette fonction permet de supprimer un groupe
-	 * @param int $groupId : L'id du groupe à supprimer
-	 * @param string $csrf : Jeton CSRF
-	 */
-	public function destroy ($groupId, $csrf)
-	{
-		global $db;
-		
-		$result = array(
-			'success' => 1,
-			'error' => '',
-		);
-
-		if (!internalTools::verifyCSRF($csrf))
-		{
-			$result['success'] = 0;
-			$result['error'] = 'Jeton CSRF invalide !';
-			echo json_encode($result);
-			return false;
-		}
-	
-		if (!$db->deleteFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId]))
-		{
-			$result['success'] = 0;
-			$result['error'] = 'Impossible de supprimer ce groupe.';
-			echo json_encode($result);
-			return false;
-		}
-
-		echo json_encode($result);
-		return true;
-	}
-
-	/**
-	 * Cette fonction retourne la page d'edition d'un groupe
-	 * @param int $groupId : L'id du groupe à éditer
-	 */
-	public function edit ($groupId)
-	{
-		global $db;
-
-		if (!$groups = $db->getFromTableWhere('groups', ['user_id' => $_SESSION['user_id'], 'id' => $groupId]))
-		{
-			$router = new Router();
-			$router->return404();
-		}
-
-		return $this->render('groupsEdit', array(
-			'group' => $groups[0]
-		));
-	}
-
-	/**
-	 * Cette fonction permet de modifier un groupe
+	 * Cette fonction retourne la page de confirmation de validation d'un défi
+	 * @param $challengeId : Le numéro du défi
 	 * @param $csrf : Le jeton CSRF
-	 * @param $_POST['name'] : Le nom du groupe à ajouter
 	 */
-	public function update ($groupId, $csrf)
+	public function confirmvalid ($challengeId, $csrf)
+	{
+		global $db;
+		
+		if (!internalTools::verifyCSRF($csrf))
+		{
+			header('Location: ' . HTTP_PWD);
+			die();
+		}
+
+		if (empty($_SESSION['tmp_photos'][$challengeId]))
+		{
+			header('Location: ' . HTTP_PWD);
+			die();
+		}
+
+		if (!$challenges = $db->getFromTableWhere('challenges', ['id' => $challengeId]))
+		{
+			$router = new Router();
+			$router->return404();
+		}
+
+		return $this->render('challengesphotosConfirmvalid', array(
+			'challenge' => $challenges[0],
+			'photo' => HTTP_PWD_IMG . 'tmp_challenges/' . $_SESSION['tmp_photos'][$challengeId],
+		));
+	}
+
+	/**
+	 * Cette fonction permet d'enregistrer une nouvelle validation
+	 * @param $challengeId : Le numéro du défi
+	 * @param $csrf : Le jeton CSRF
+	 */
+	public function create ($challengeId, $csrf)
 	{
 		global $db;
 		$result = array(
@@ -214,15 +175,23 @@ class challengesphotos extends Controller
 			return false;
 		}
 
-		if (empty($_POST['name']))
+		if (empty($_SESSION['tmp_photos'][$challengeId]))
 		{
 			$result['success'] = 0;
-			$result['error'] = 'Remplissez tous les champs.';
+			$result['error'] = 'Il n\'existe pas de photos pour ce challenge';
 			echo json_encode($result);
 			return false;
 		}
 
-		if (!$db->updateTableWhere('groups', ['name' => $_POST['name']], ['id' => $groupId, 'user_id' => $_SESSION['user_id']]))
+		if (rename(PWD_IMG . 'tmp_challenges/' . $_SESSION['tmp_photos'][$challengeId], PWD_IMG . 'challenges/' . $_SESSION['tmp_photos'][$challengeId]))
+		{
+			$result['success'] = 0;
+			$result['error'] = 'Impossible d\'enregistrer la photo.';
+			echo json_encode($result);
+			return false;
+		}
+
+		if (!$db->insertIntoTable('validated_challenges', ['team_id' => $_SESSION['user']['team_id'], 'challenge_id' => $challengeId, 'document' => $_SESSION['tmp_photos'][$challengeId]]))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Une erreur inconnue est survenue.';
@@ -232,6 +201,29 @@ class challengesphotos extends Controller
 
 		echo json_encode($result);
 		return true;
+	}
+
+	/**
+	 * Cette fonction retourne la page permettant d'uploader la photo d'un défi photo
+	 * @param $challenge : Un ligne de bdd de la table challenge
+	 */
+	protected function askForPhoto($challenge)
+	{
+		$this->render('challengesphotosAskForPhoto', array(
+			'challenge' => $challenge,
+		));
+	}
+
+
+	/**
+	 * Cette fonction retourne la page permettant de modifier la photo d'un défi photo
+	 * @param $challenge : Une ligne de bdd de la table challenge
+	 */
+	protected function askForEdit($challenge)
+	{
+		$this->render('challengesphotosAskForEdit', array(
+			'challenge' => $challenge,
+		));
 	}
 }
 

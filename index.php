@@ -32,4 +32,3 @@
 	//Partie gérant l'appel des controlleurs
 	$router = new Router($_SERVER['REQUEST_URI']);
 	$router->loadRoute($router->getRoute());
-
