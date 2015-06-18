@@ -101,7 +101,7 @@ class challengesphotos extends Controller
 			return false;
 		}
 
-		if ($photoName = !internalTools::uploadPhoto($_FILES['photo'], PWD_IMG . 'challenges'))
+		if (@$photoName = !internalTools::uploadPhoto($_FILES['photo'], PWD_IMG . 'challenges'))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Impossible d\'enregistrer la photo.';
