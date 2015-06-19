@@ -8,7 +8,7 @@ class users extends Controller
 	 * Page de users par défaut
 	 * @param int $usersId : Le numéro du user
 	 */	
-	public function show ($usersId)
+	public function show ($usersId, $teamShowPage = FALSE)
 	{
 		global $db;
 		if (!$users = $db->getFromTableWhere('users', ['id' => $usersId]))
@@ -19,10 +19,10 @@ class users extends Controller
 		$birthdate = new DateTime($users[0]['birthdate']);
 		$birthdate = $birthdate->format('d/m/Y');
 
-
 		return $this->render("usersShow", array(
 			'user' => $users[0],
 			'birthdate' => $birthdate,
+			'teamShowPage' => $teamShowPage,
 		));
 	}
 }

@@ -534,6 +534,23 @@ a, a:focus, a:hover, a:active
 	background-color: #89C4F4;
 }
 
+/********************/
+/* TEAMS SHOW PAGE */
+/********************/
+#teams-show
+{
+	background-color: #34495e;
+}
+
+#infos-container-teams-show-user
+{
+	color: #34495e;
+	font-size: 22px;
+	position: absolute;
+	top: -30px;
+	left: -8px;
+}
+
 /**************/
 /* TEAM PAGE */
 /**************/
@@ -665,6 +682,24 @@ a, a:focus, a:hover, a:active
 .img-users img 
 {
 	width: 100%;
+}
+
+/********************/
+/* RANKING PAGE */
+/********************/
+
+#ranking
+{
+	background-color: #F62459;
+}
+
+#infos-container-ranking
+{
+	color: #f62459;
+    font-size: 16px;
+    left: -8px;
+    position: absolute;
+    top: -25px;	
 }
 
 /**********/

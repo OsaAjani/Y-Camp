@@ -3,6 +3,7 @@
 	<h1>Choisissez un type de challenge</h1>
 
 	<div class="icons-top">
+		<span class="control ion-ios-flag-outline" id="icon-user" target="<?php secho($this->generateUrl('ranking')); ?>" target-id="ranking"></span>
 		<span class="control ion-ios-people-outline" id="icon-user" target="<?php secho($this->generateUrl('teams')); ?>" target-id="teams"></span>
 	</div>
 	
