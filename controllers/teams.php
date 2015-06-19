@@ -93,15 +93,20 @@ class teams extends Controller
 		return true;
 	}	
 
-	public function show ($teamID)
+
+	/**
+	 * Cette fonction permet d'afficher les users de la team
+	 * @param $teamId : l'id de la team
+	 */
+	public function show ($teamId)
 	{
 		global $db;
 
-		$teams = $db->getFromTableWhere('teams', ['id' => $teamID]);
+		$teams = $db->getFromTableWhere('teams', ['id' => $teamId]);
 		$team = $teams[0];
 
 		$challenges = $db->getFromTableWhere('challenges');
-		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $teamID]);
+		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $teamId]);
 
 		$points = 0;
 		foreach ($challenges as $challenge)
@@ -116,13 +121,33 @@ class teams extends Controller
 			}
 		}
 
-		$users = $db->getFromTableWhere('users', ['team_id' => $teamID]);
+		$users = $db->getFromTableWhere('users', ['team_id' => $teamId]);
 		
 		return $this->render("teamsShow", array(
 			'team' => $team,
 			'users' => $users,
 			'points' => $points,
 		));
+	}
+
+	/**
+	 * Cette fonction permet d'afficher toutes les photos prise par la team
+	 * @param $teamId : l'id de la team
+	 */
+	public function pictures ($teamId)
+	{
+		global $db;
+		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $teamId]);
+		foreach ($validChallenges as $key => $validChallenge)
+		{
+			if (!$validChallenge['document']) 
+			{
+				unset($validChallenges[$key]);
+			}
+		}
+
+
+
 	}
 
 }

@@ -2,7 +2,9 @@
 	<span class="go-back-arrow control ion-ios-arrow-thin-left" target="<?php secho($this->generateUrl('ranking')); ?>" target-id="ranking" animation="slideInLeft" ></span>
 	<h1><?php secho($team['name']); ?> - <?php secho($points); ?> points</h1>
 
-	<div class="icons-top"> </div>
+	<div class="icons-top"> 
+		<span class="control ion-ios-gear-outline" target="<?php secho($this->generateUrl('teams', 'pictures', [$team['id']])); ?>" target-id="teams-pictures"></span>
+	</div>
 
 	<?php if (!count($users)) { ?>
 		<div class="no-data">Pas de données</div>
