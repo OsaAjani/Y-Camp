@@ -10,7 +10,7 @@
 		<span class="ion-ios-circle-filled infos-container-round" ></span>
 		<span class="ion-podium" id="infos-container-podium" ></span>
 		<div class="info">
-			<span class="control col-xs-12" target="<?php secho($this->generateUrl('challengesobjects')); ?>" target-id="challenges-objects">Défi Objet</span>
+			<span class="control col-xs-12" target="<?php secho($this->generateUrl('challengesobjects')); ?>" target-id="challengesobjects">Défi Objet</span>
 		</div>
 		<div class="clearfix"></div>
 		<div class="info">

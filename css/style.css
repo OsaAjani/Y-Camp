@@ -526,9 +526,9 @@ a, a:focus, a:hover, a:active
 	display: inline-block;
 }
 
-/********************/
+/*******************/
 /* TEAMS EDIT PAGE */
-/********************/
+/*******************/
 #teams-edit
 {
 	background-color: #89C4F4;
@@ -558,20 +558,48 @@ a, a:focus, a:hover, a:active
 	margin-top: 10vh;
 }
 
-/*******************/
-/* USERS EDIT PAGE */
-/*******************/
-#users-edit
+/***************************/
+/* CHALLENGES OBJECTS PAGE */
+/***************************/
+#challengesobjects
 {
 	background-color: #00BCD4;
 }
 
-/*********************/
-/* USERS DELETE PAGE */
-/*********************/
-#users-delete
+#infos-container-challengesobjects-cube
 {
-	background-color: #DA4453;
+	color: #00BCD4;
+	font-size: 19px;
+	position: absolute;
+	top: -26px;
+	left: -9px;
+}
+
+/********************************/
+/* CHALLENGES OBJECTS SHOW PAGE */
+/********************************/
+#challengesobjects-show
+{
+	background-color: #34495e;
+}
+
+/****************************************/
+/* CHALLENGES OBJECTS CONFIRMVALID PAGE */
+/****************************************/
+#challengesobjects-confirmvalid
+{
+	background-color: #00aba9;
+}
+.challengesobjects-check
+{
+	font-size: 20vh;
+}
+
+.challengesobjects-valid-button
+{
+	font-size: 15vh;
+	margin-left: 5vh;
+	margin-right: 5vh;
 }
 
 /***********************/
@@ -579,7 +607,7 @@ a, a:focus, a:hover, a:active
 /***********************/
 #passwords-show
 {
-	background-color: #34495e;
+	background-color: #DA4453;
 }
 
 #decrypted-password
@@ -588,13 +616,6 @@ a, a:focus, a:hover, a:active
 	margin-top: 10vh;
 }
 
-/**********************/
-/* PASSWORDS ADD PAGE */
-/**********************/
-#passwords-add
-{
-	background-color: #00aba9;
-}
 
 /*************************/
 /* PASSWORDS DELETE PAGE */

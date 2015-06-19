@@ -184,6 +184,12 @@ jQuery(document).ready(function()
 		e.preventDefault();
 		jQuery(this).parents('form').submit();
 	});
+
+	jQuery('#first-container').on('click', '#challengesobjects-valid-button-submit', function (e)
+	{
+		e.preventDefault();
+		jQuery(this).parents('form').submit();
+	});
 });
 
 
