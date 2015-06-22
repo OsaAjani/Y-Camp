@@ -11,7 +11,8 @@
 
 		<!-- CSS  -->
 		<link rel="stylesheet" type="text/css" href="<?php echo HTTP_PWD_CSS; ?>bootstrap.min.css" />
-		<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo HTTP_PWD_CSS; ?>bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo HTTP_PWD_CSS; ?>ionicons.min.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo HTTP_PWD_CSS; ?>bootstrap-slider.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo HTTP_PWD_CSS; ?>responsive-font.min.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo HTTP_PWD_CSS; ?>animate.css" />
