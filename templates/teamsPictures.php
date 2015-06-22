@@ -1,6 +1,10 @@
 <div id="teams-pictures" class="tile">
 	<span class="go-back-arrow control ion-ios-arrow-thin-left" target="<?php secho($this->generateUrl('teams', 'show', [$team['id']])); ?>" target-id="teams-show" animation="slideInLeft" ></span>
 	<div id="background-images"></div>
+	<div id="team-name-cover-container">
+		<div id="team-name-cover"><?php secho($team['name']); ?></div>
+	</div>
+	<div id="overlay-images"></div>
 </div>
 <script>
 	jQuery('document').ready(function()
@@ -48,33 +52,47 @@
 		while (i < length) //Chaque ligne
 		{
 			jQuery('#background-images').append('<div class="line-images"></div>');
-			jQuery('#first-container').find('.line-images').last().css('height', imgsHeight + '%');
+			jQuery('#overlay-images').append('<div class="line-images"></div>');
+			jQuery('#first-container').find('#background-images .line-images').last().css('height', imgsHeight + '%');
+			jQuery('#first-container').find('#overlay-images .line-images').last().css('height', imgsHeight + '%');
 
 			var j = 0;
+			var l = 0;
 			var length2 = imgsArray[i].length;
 			while (j < length2) //Chaque colonne
 			{
 				//On ajoute une image
-				jQuery('#first-container').find('.line-images').last().append('<div class="images-div"></div>');
+				jQuery('#first-container').find('#background-images .line-images').last().append('<div class="images-div"></div>');
+				jQuery('#first-container').find('#overlay-images .line-images').last().append('<div class="images-div goto" target="<?php echo $this->generateUrl('pictures', 'show'); ?>' + challenges[l].id + '" target-id="pictures-show" transition="flipInY"><span class="ion-eye"></span></div>');
 
 				//On fixe ses styles
-				jQuery('#first-container').find('.images-div').last().css({
+				jQuery('#first-container').find('#background-images .images-div').last().css({
 					'background-image': "url('" + HTTP_PWD + "img/challenges/" + imgsArray[i][j] + "')",
 					'height': '100%', 
 					'width': imgsWidth + '%'
 				});
+				jQuery('#first-container').find('#overlay-images .images-div').last().css({
+					'height': '100%', 
+					'width': imgsWidth + '%'
+				});
+				jQuery('#first-container').find('#overlay-images .images-div').last().css('line-height', jQuery('#first-container').find('#overlay-images .images-div').last().height() + 'px');
 
 				//Si cette lignee contient moins d'image que les autres, on equilibre
 				if (imgsArray[i].length < imgsArray[0].length)
 				{
 					var customImgsWidth = 100 / imgsArray[i].length;
-					jQuery('#first-container').find('.images-div').last().css({
+					jQuery('#first-container').find('#background-images .images-div').last().css({
+						'width': customImgsWidth + '%'
+					});
+
+					jQuery('#first-container').find('#overlay-images .images-div').last().css({
 						'width': customImgsWidth + '%'
 					});
 					
 				}
 
 				j ++;
+				l ++;
 			}
 
 			i ++;

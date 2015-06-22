@@ -6,14 +6,13 @@ class pictures extends Controller
 {
 	/**
 	 * Page de pictures par défaut
-	 * @param $tpictureName : nom de l'iamge choisis par le user
-	 * @param $teamId : l'id de la team
+	 * @param int $validatedChallengeId : L'id du challenge validé
 	 */	
-	public function show ($pictureName, $teamId)
+	public function show ($validatedChallengeId)
 	{
+		
+
 		return $this->render("picturesShow", array(
-			'teamId' => $teamId,
-			'pictureName' => $pictureName,
 		));
 	}
 

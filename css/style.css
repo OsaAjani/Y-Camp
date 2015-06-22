@@ -578,7 +578,8 @@ a, a:focus, a:hover, a:active
 	background-color: #9b59b6;
 }
 
-#background-images
+#background-images,
+#overlay-images
 {
 	position: absolute;
 	z-index: 1;
@@ -590,6 +591,28 @@ a, a:focus, a:hover, a:active
 	padding: 0;
 }
 
+#overlay-images
+{
+	z-index: 3;
+}
+
+#overlay-images .images-div
+{
+	opacity: 0;
+	background-color: #3498db;
+	font-size: 50px;
+	text-align: center;
+	transition: opacity .5s linear;
+	-moz-transition: opacity .5s linear;
+	-webkit-transition: opacity .5s linear;
+}
+
+#overlay-images .images-div:hover
+{
+	opacity: .8;
+	cursor: pointer;
+}
+
 .images-div
 {
 	background-position: center;
@@ -597,6 +620,29 @@ a, a:focus, a:hover, a:active
 	background-repeat: no-repeat;
 	background-color: none;
 	display: inline-block;
+}
+
+#team-name-cover-container
+{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 2;
+	line-height: 100vh;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#team-name-cover
+{
+	display: inline-block;
+	font-weight: 300;
+	font-size: 7vh;
+	background-color: rgba(52, 152, 219, 0.8);
+	line-height: 7vh;
+	padding: 3vh 5vh;
 }
 
 /***************************/
