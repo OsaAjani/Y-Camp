@@ -4,7 +4,7 @@
 
 	<div class="icons-top">
 		<span class="control ion-ios-gear-outline" target="<?php secho($this->generateUrl('teams', 'edit')); ?>" target-id="teams-edit"></span>
-				<span class="control ion-ios-gear-outline" target="<?php secho($this->generateUrl('teams', 'pictures', [$team['id']])); ?>" target-id="teams-pictures"></span>
+		<span class="control ion-images" target="<?php secho($this->generateUrl('teams', 'pictures', [$team['id']])); ?>" target-id="teams-pictures"></span>
 	</div>
 
 	<?php if (!count($users)) { ?>

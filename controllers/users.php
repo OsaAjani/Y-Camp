@@ -7,6 +7,7 @@ class users extends Controller
 	/**
 	 * Page de users par défaut
 	 * @param int $usersId : Le numéro du user
+	 * @param bool $teamShowPage : permet de savoir si l'on vient de la page teamsShow ou pas
 	 */	
 	public function show ($usersId, $teamShowPage = FALSE)
 	{
