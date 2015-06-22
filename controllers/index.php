@@ -30,4 +30,13 @@ class index extends Controller
 	{
 		return $this->render('indexPassword');
 	}
+
+	/**
+	 * Page des questions et infos
+	 */
+	public function questions ()
+	{
+		return $this->render('indexQuestions');
+	}
+
 }
