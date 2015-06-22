@@ -4,7 +4,7 @@
 
 	<div class="icons-top">
 		<span class="control ion-ios-flag-outline" id="icon-user" target="<?php secho($this->generateUrl('ranking')); ?>" target-id="ranking"></span>
-		<span class="control ion-ios-people-outline" id="icon-user" target="<?php secho($this->generateUrl('teams')); ?>" target-id="teams"></span>
+		<span class="control ion-ios-people-outline" id="icon-user" target="<?php secho($this->generateUrl('teams', 'show', [$_SESSION['user']['team_id'], TRUE])); ?>" target-id="teams-show"></span>
 	</div>
 	
 	<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 infos-container">

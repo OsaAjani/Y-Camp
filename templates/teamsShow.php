@@ -1,9 +1,17 @@
 <div id="teams-show" class="tile">
-	<span class="go-back-arrow control ion-ios-arrow-thin-left" target="<?php secho($this->generateUrl('ranking')); ?>" target-id="ranking" animation="slideInLeft" ></span>
+	<?php if ($challengePage) { ?>
+		<span class="go-back-arrow control ion-ios-arrow-thin-left" target="<?php secho($this->generateUrl('challenges')); ?>" target-id="challenges" animation="slideInLeft" ></span>	
+	<?php } else { ?>
+		<span class="go-back-arrow control ion-ios-arrow-thin-left" target="<?php secho($this->generateUrl('ranking')); ?>" target-id="ranking" animation="slideInLeft" ></span>
+	<?php } ?>
 	<h1><?php secho($team['name']); ?> - <?php secho($points); ?> points</h1>
 
 	<div class="icons-top"> 
-		<span class="control ion-images" target="<?php secho($this->generateUrl('teams', 'pictures', [$team['id'], TRUE])); ?>" target-id="teams-pictures"></span>
+		<?php if($team['id'] == $_SESSION['user']['team_id']) { ?>
+			<span class="control ion-ios-gear-outline" target="<?php secho($this->generateUrl('teams', 'edit')); ?>" target-id="teams-edit"></span>
+		<?php }?>
+			<span class="control ion-images" target="<?php secho($this->generateUrl('teams', 'pictures', [$team['id'], TRUE])); ?>" target-id="teams-pictures"></span>
+		
 	</div>
 
 	<?php if (!count($users)) { ?>

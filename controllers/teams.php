@@ -4,39 +4,39 @@
  */
 class teams extends Controller
 {
-	/**
-	 * Page de teams par défaut
-	 */	
-	public function byDefault ()
-	{
-		global $db;
+	// /**
+	//  * Page de teams par défaut
+	//  */	
+	// public function byDefault ()
+	// {
+	// 	global $db;
 
-		$teams = $db->getFromTableWhere('teams', ['id' => $_SESSION['user']['team_id']]);
-		$team = $teams[0];
+	// 	$teams = $db->getFromTableWhere('teams', ['id' => $_SESSION['user']['team_id']]);
+	// 	$team = $teams[0];
 
-		$challenges = $db->getFromTableWhere('challenges');
-		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id']]);
+	// 	$challenges = $db->getFromTableWhere('challenges');
+	// 	$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id']]);
 
-		$points = 0;
-		foreach ($challenges as $challenge)
-		{
+	// 	$points = 0;
+	// 	foreach ($challenges as $challenge)
+	// 	{
 		
-			foreach ($validChallenges as $validChallenge)
-			{
-				if ($challenge['id'] == $validChallenge['challenge_id'])
-				{
-					$points += $challenge['points'];
-				}
-			}
-		}
+	// 		foreach ($validChallenges as $validChallenge)
+	// 		{
+	// 			if ($challenge['id'] == $validChallenge['challenge_id'])
+	// 			{
+	// 				$points += $challenge['points'];
+	// 			}
+	// 		}
+	// 	}
 
-		$users = $db->getFromTableWhere('users', ['team_id' => $_SESSION['user']['team_id']]);
-		return $this->render("teams", array(
-			'team' => $team,
-			'users' => $users,
-			'points' => $points,
-		));
-	}
+	// 	$users = $db->getFromTableWhere('users', ['team_id' => $_SESSION['user']['team_id']]);
+	// 	return $this->render("teams", array(
+	// 		'team' => $team,
+	// 		'users' => $users,
+	// 		'points' => $points,
+	// 	));
+	// }
 
 
 	/**
@@ -97,8 +97,9 @@ class teams extends Controller
 	/**
 	 * Cette fonction permet d'afficher les users de la team
 	 * @param $teamId : l'id de la team
+	 * @param bool $challengePage : permet de savoir si l'on vient de la page challenge (TRUE) ou de la page ranking (FALSE)
 	 */
-	public function show ($teamId)
+	public function show ($teamId, $challengePage = FALSE)
 	{
 		global $db;
 
@@ -127,6 +128,7 @@ class teams extends Controller
 			'team' => $team,
 			'users' => $users,
 			'points' => $points,
+			'challengePage' => $challengePage,
 		));
 	}
 
