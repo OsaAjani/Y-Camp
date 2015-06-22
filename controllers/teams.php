@@ -135,9 +135,8 @@ class teams extends Controller
 	/**
 	 * Cette fonction permet d'afficher toutes les photos prise par la team
 	 * @param $teamId : l'id de la team
-	 * @param bool $teamShowPage : permet de savoir si l'on vient de la page teamsShow ou pas
 	 */
-	public function pictures ($teamId, $teamShowPage = FALSE)
+	public function pictures ($teamId)
 	{
 		global $db;
 		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $teamId]);
@@ -149,10 +148,17 @@ class teams extends Controller
 			}
 		}
 
+		$validChallenges = array_values($validChallenges); //On réindex le tableau à 0 !
+
+		if (!$teams = $db->getFromTableWhere('teams', ['id' => $teamId]))
+		{
+			$router = new Router();
+			$router->return404();
+		}
 
 		return $this->render("teamsPictures", array(
-			'teamId' => $teamId,
-			'teamShowPage' => $teamShowPage,
+			'team' => $teams[0],
+			'challenges' => json_encode($validChallenges),
 		));
 	}
 

@@ -10,7 +10,7 @@
 		<?php if($team['id'] == $_SESSION['user']['team_id']) { ?>
 			<span class="control ion-ios-gear-outline" target="<?php secho($this->generateUrl('teams', 'edit')); ?>" target-id="teams-edit"></span>
 		<?php }?>
-			<span class="control ion-images" target="<?php secho($this->generateUrl('teams', 'pictures', [$team['id'], TRUE])); ?>" target-id="teams-pictures"></span>
+			<span class="control ion-images" target="<?php secho($this->generateUrl('teams', 'pictures', [$team['id']])); ?>" target-id="teams-pictures"></span>
 		
 	</div>
 

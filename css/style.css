@@ -554,11 +554,6 @@ a, a:focus, a:hover, a:active
 /**************/
 /* TEAM PAGE */
 /**************/
-#teams
-{
-	background-color: #9b59b6;
-}
-
 #infos-container-users-user, 
 #infos-container-teams-user
 {
@@ -573,6 +568,35 @@ a, a:focus, a:hover, a:active
 {
 	font-size: 50px;
 	margin-top: 10vh;
+}
+
+/***********************/
+/* TEAMS PICTURES PAGE */
+/***********************/
+#teams-pictures
+{
+	background-color: #9b59b6;
+}
+
+#background-images
+{
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.images-div
+{
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: none;
+	display: inline-block;
 }
 
 /***************************/
@@ -702,6 +726,7 @@ a, a:focus, a:hover, a:active
     top: -25px;	
 }
 
+
 /**********/
 /* SPINER */
 /**********/
@@ -741,3 +766,4 @@ a, a:focus, a:hover, a:active
 	vertical-align: middle;
 	display: none;
 }
+

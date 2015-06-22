@@ -186,7 +186,7 @@ class challengesphotos extends Controller
 			return false;
 		}
 
-		if (!rename(PWD_IMG . 'tmp_challenges/' . $_SESSION['tmp_photos'][$challengeId], PWD_IMG . 'challenges/' . $_SESSION['tmp_photos'][$challengeId]))
+		if (@!rename(PWD_IMG . 'tmp_challenges/' . $_SESSION['tmp_photos'][$challengeId], PWD_IMG . 'challenges/' . $_SESSION['tmp_photos'][$challengeId]))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Impossible d\'enregistrer la photo.';
