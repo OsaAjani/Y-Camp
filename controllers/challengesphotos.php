@@ -194,12 +194,22 @@ class challengesphotos extends Controller
 			return false;
 		}
 
+		if (!$this->poorPhoto(PWD_IMG . 'challenges/' . $_SESSION['tmp_photos'][$challengeId], PWD_IMG . 'challenges/poor_' . $_SESSION['tmp_photos'][$challengeId]))
+		{
+			$result['success'] = 0;
+			$result['error'] = 'Impossible de compresser la photo.';
+			echo json_encode($result);
+			return false;
+		}
+		
+
 		//On delete une éventuelle ancienne photo et validation
 		if ($validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id'], 'challenge_id' => $challengeId]))
 		{
 			foreach ($validChallenges as $validChallenge)
 			{
 				@unlink(PWD_IMG . 'challenges/' . $validChallenge['document']);
+				@unlink(PWD_IMG . 'challenges/poor_' . $validChallenge['document']);
 				$db->deleteFromTableWhere('validated_challenges', ['id' => $validChallenge['id']]);
 			}
 		}
@@ -237,6 +247,31 @@ class challengesphotos extends Controller
 		$this->render('challengesphotosAskForEdit', array(
 			'challenge' => $challenge,
 		));
+	}
+
+	/**
+	 * Cette fonction permet de fabriquer la version poor d'une photo
+	 * @param string $path : Le chemin vers le fichier
+	 * @param string $outPath : Le chemin vers le fichier de sortie
+	 */
+	private function poorPhoto ($path, $pathOut)
+	{
+
+		//On va calculer le ratio originale
+		$mediaInfo = new finfo(FILEINFO_MIME_TYPE);
+		$mediaMimeType = $mediaInfo->file($path);
+		if ($mediaMimeType === false)
+		{
+			return false;
+		}
+
+		$quality = ($mediaMimeType == 'image/jpeg') ? 50 : 6; //On utilise le type pour déterminer le type de qualiter à employer
+
+		$imageSize = getimagesize($path);
+		$ratioOrigin = $imageSize[0] / $imageSize[1]; //On a le ratio de l'image d'origine
+
+		//On demande la création d'une image de 500px en gardant le ratio de base
+		return internalTools::resizeImageAndCropForHeightAndRatio($path, $pathOut, 500, $ratioOrigin, $quality);
 	}
 }
 

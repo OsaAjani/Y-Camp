@@ -347,4 +347,104 @@
 
 			return $destinationName;
 		}
+
+		/**
+		 * Cette fonction permet de redimensionner une image PNG OU JPG par rapport à une hauteur maximale et un ratio de cette hauteur en largeur, le tout sans deformations, avec un crop si necessaires
+		 * @param string $image : L'adresse de l'image à redimensionner
+		 * @param string $outfile : L'adresse de l'image de sortie
+		 * @param int $height : La hauteur à fixer
+		 * @param float $ratio : Le ratio à appliquer pour la width
+		 * @param int $quality : La qualité de l'image (0-9 pour png et 0-100 pour jpg), par défaut à null, donnera 9 pour png et 100 pour jpeg
+		 * @return boolean : true si la transformation a reussi, false sinon
+		 */
+		public static function resizeImageAndCropForHeightAndRatio($image, $outfile, $height, $ratio, $quality = null)
+		{
+			$mediaInfo = new finfo(FILEINFO_MIME_TYPE);
+	                $mediaMimeType = $mediaInfo->file($image);
+			if ($mediaMimeType === false)
+			{
+				return false;
+			}
+
+			//On switch pour fixer la qualité et recuperer l'image
+			switch ($mediaMimeType)
+			{
+				case 'image/jpeg' : 
+					$quality = ($quality === null) ? 100 : $quality;
+					$src_image = imagecreatefromjpeg($image);
+					break;
+				case 'image/png' : 
+					$quality = ($quality === null) ? 9 : $quality;
+					$src_image = imagecreatefrompng($image);
+					break;
+				default :
+					return false;
+			}
+
+
+			$imageSize = getimagesize($image);
+
+			$ratioWidthHeight = $imageSize[0] / $imageSize[1];
+
+			$newWidth = ceil($height * $ratio);
+
+			$dst_x = 0;
+			$dst_y = 0;
+			$dst_w = $newWidth;
+			$dst_h = $height;
+			$dst_image = imagecreatetruecolor($newWidth, $height);
+
+			//On assure la transparence des fichiers png
+			if ($imageSize['mime'] == 'image/png')
+			{
+				$black = imagecolorallocate($dst_image, 0, 0, 0);
+				imagecolortransparent($dst_image, $black);
+			}
+
+			//On choisi le comportement à adopter pour le redimensionnement
+			//Si l'image de base est plus en largeur que voulu, on doit redimensionner la hauteur est recentrer en largeur
+			if ($ratioWidthHeight > $ratio)
+			{
+				//On calcul la taille qu'aurait l'image originale si on la scaler sans recouper
+				$originalNewWidth = ceil($ratioWidthHeight * $height);
+				$widthReste = ceil(($originalNewWidth - $newWidth) / 2);
+				$src_x = $widthReste;
+				$src_y = 0;
+				$src_w = $newWidth;
+				$src_h = $height;
+				$src_image = imagescale($src_image, $originalNewWidth);
+			}
+			else //Sinon, si l'image de base est plus en hauteur que voulue, on doit redimensionner la largeur et recentrer en hauteur
+			{
+				$ratioHeightWidth = $imageSize[1] / $imageSize[0];
+				$originalNewHeight = ceil($height * $ratioHeightWidth);
+				$heightReste = ceil(($originalNewHeight - $height) / 2);
+				$src_x = 0;
+				$src_y = 0;
+				$src_w = $newWidth;
+				$src_h = $height;
+				$src_image = imagescale($src_image, $newWidth);
+			}
+
+			//On a toutes les infos necessaires, on va faire notre redimension
+			if (!imagecopyresampled($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h))
+			{
+				return false;
+			}
+
+			//On ecrit l'image et on retourne le resultat de l'opération
+			switch ($imageSize['mime'])
+			{
+				case 'image/jpeg' : 
+					$result = imagejpeg($dst_image, $outfile, $quality);
+					break;
+				case 'image/png' : 
+					$result = imagepng($dst_image, $outfile, $quality);
+					break;
+				default :
+					return false;
+			}
+
+			return $result;
+		}
 	}
