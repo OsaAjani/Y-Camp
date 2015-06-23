@@ -4,6 +4,15 @@
  */
 class teams extends Controller
 {
+	public function before ()
+	{
+		if (!isset($_SESSION['connected']) || !$_SESSION['connected'])
+		{
+			header('Location: ' . HTTP_PWD);
+			die();
+		}
+	}
+
 	/**
 	 * Cette fonction retourne la page d'edition d'un groupe
 	 */

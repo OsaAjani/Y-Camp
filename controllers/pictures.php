@@ -4,6 +4,15 @@
  */
 class pictures extends Controller
 {
+	public function before ()
+	{
+		if (!isset($_SESSION['connected']) || !$_SESSION['connected'])
+		{
+			header('Location: ' . HTTP_PWD);
+			die();
+		}
+	}
+
 	/**
 	 * Page de pictures par défaut
 	 * @param int $validatedChallengeId : L'id du challenge validé

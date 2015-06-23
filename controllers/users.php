@@ -4,6 +4,15 @@
  */
 class users extends Controller
 {
+	public function before ()
+	{
+		if (!isset($_SESSION['connected']) || !$_SESSION['connected'])
+		{
+			header('Location: ' . HTTP_PWD);
+			die();
+		}
+	}
+
 	/**
 	 * Page de users par défaut
 	 * @param int $usersId : Le numéro du user
