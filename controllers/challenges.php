@@ -20,6 +20,8 @@ class challenges extends Controller
 	{
 		global $db;
 
+		$_SESSION['lastIntersection'] = 'challenge';
+
 		return $this->render("challenges");
 	}
 }

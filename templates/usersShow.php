@@ -1,9 +1,5 @@
 <div id="users-show" class="tile">
-	<?php  if($teamShowPage) { ?>
 		<span class="go-back-arrow control ion-ios-arrow-thin-left" target="<?php secho($this->generateUrl('teams', 'show', [$user['team_id']])); ?>" target-id="teams-show" animation="slideInLeft" ></span>
-	<?php }else{ ?>
-		<span class="go-back-arrow control ion-ios-arrow-thin-left" target="<?php secho($this->generateUrl('teams')); ?>" target-id="teams" animation="slideInLeft" ></span>
-	<?php } ?>
 	<h1><?php secho($user['firstname']." ".$user['lastname']); ?></h1>
 
 	<div class="text-center">
