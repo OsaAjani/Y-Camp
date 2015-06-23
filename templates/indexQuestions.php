@@ -5,17 +5,46 @@
 	<div id="index-questions-container" class="col-xs-10 col-xs-offset-1">
 		<h3 class="index-questions-question">Je n'arrive pas à me connecter, que faire ?</h3>
 		<div class="index-questions-reponse">
-			Haec subinde Constantius audiens et quaedam referente Thalassio doctus, quem eum odisse iam conpererat lege communi, scribens ad Caesarem blandius adiumenta paulatim illi subtraxit, sollicitari se simulans ne, uti est militare otium fere tumultuosum, in eius perniciem conspiraret, solisque scholis iussit esse contentum palatinis et protectorum cum Scutariis et Gentilibus, et mandabat Domitiano, ex comite largitionum, praefecto ut cum in Syriam venerit, Gallum, quem crebro acciverat, ad Italiam properare blande hortaretur et verecunde.
+			Vous devez vérifier que votre email et votre mot de passe correspondent bien à celui envoyé par mail ! Rappel, le mail s'écrit de la manière suivante : prenom.nom@y-nov.com.	
+		</div>
+		
+		<h3 class="index-questions-question">Comment gagner ?</h3>
+		<div class="index-questions-reponse">
+			Vous devez réaliser le plus de défis possibles dans le temps imparti afin de récolter le plus de points possible !
+		</div>
+
+		<h3 class="index-questions-question">Quels sont les prix à gagner ?</h3>
+		<div class="index-questions-reponse">
+			Les vainqueurs repartiront avec une place de cinéma.
 		</div>
 
 		<h3 class="index-questions-question">À qui doit-on ramener les objets ?</h3>
 		<div class="index-questions-reponse">
-			Intellectum est enim mihi quidem in multis, et maxime in me ipso, sed paulo ante in omnibus, cum M. Marcellum senatui reique publicae concessisti, commemoratis praesertim offensionibus, te auctoritatem huius ordinis dignitatemque rei publicae tuis vel doloribus vel suspicionibus anteferre. 
+			Les objets sont à ramener à Pauline CAPOT et Maud GUIRAUD.
+		</div>
+
+		<h3 class="index-questions-question">À quelle heure devez-vous revenir pour manger ?</h3>
+		<div class="index-questions-reponse">
+			Nous vous attendons pour 13h au campus pour la pause déjeuner !
+		</div>
+
+		<h3 class="index-questions-question">À quelle heure se termine le rallye ?</h3>
+		<div class="index-questions-reponse">
+			Toutes les équipes doivent être de retour, au complet, au campus avant 16 heures. Tout retard sera synonyme de discalification.
+		</div>
+
+		<h3 class="index-questions-question">Qui prévenir en cas de problèmes d'orientations ?</h3>
+		<div class="index-questions-reponse">
+			Nous nous tenons à disposition pour répondre à vos questions par téléphone : <br />
+			 Appelez le xxxxxxxxxx et dites "xxxxxxxxxx", <br />
+			 ou le xxxxxxxxxx et dites "xxxxxxxxxx"<br />
+			 ou le numéro complémentaire xxxxxxxxxx et dites "xxxxxxxxxx"
+
 		</div>
 
 		<h3 class="index-questions-question">Quelles technologies sont utilisées par l'application ?</h3>
 		<div class="index-questions-reponse">
-			Ego vero sic intellego, Patres conscripti, nos hoc tempore in provinciis decernendis perpetuae pacis habere oportere rationem. Nam quis hoc non sentit omnia alia esse nobis vacua ab omni periculo atque etiam suspicione belli ?
+			L'application a été développée en HTML, CSS, PHP et JAVASCRIPT.
 		</div>
 	</div>
 </div>
