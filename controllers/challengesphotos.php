@@ -256,7 +256,6 @@ class challengesphotos extends Controller
 	 */
 	private function poorPhoto ($path, $pathOut)
 	{
-
 		//On va calculer le ratio originale
 		$mediaInfo = new finfo(FILEINFO_MIME_TYPE);
 		$mediaMimeType = $mediaInfo->file($path);
@@ -264,14 +263,57 @@ class challengesphotos extends Controller
 		{
 			return false;
 		}
-
-		$quality = ($mediaMimeType == 'image/jpeg') ? 50 : 6; //On utilise le type pour déterminer le type de qualiter à employer
+		
+		//On adapte en fonction du mediaMimeType
+		switch ($mediaMimeType)
+		{
+			case 'image/jpeg' :
+				$image = imagecreatefromjpeg($path);
+				$quality = 50;
+				break;
+			case 'image/png' :
+				$image = imagecreatefrompng($path);
+				$quality = 6;
+				break;
+			default :
+				return false;
+				break;
+		}
 
 		$imageSize = getimagesize($path);
-		$ratioOrigin = $imageSize[0] / $imageSize[1]; //On a le ratio de l'image d'origine
+		$ratioOrigin = $imageSize[0] / $imageSize[1]; //On a le ratio de l'image d'origine, width/height
 
-		//On demande la création d'une image de 500px en gardant le ratio de base
-		return internalTools::resizeImageAndCropForHeightAndRatio($path, $pathOut, 500, $ratioOrigin, $quality);
+		$newHeight = 500;
+		$newWidth = $ratioOrigin / ($imageSize[1] / $newHeight);
+
+		$imageDestination = imagecreatetruecolor($newWidth, $newHeight);
+
+		//On gère le png
+		if ($mediaMimeType == 'image/png')
+		{
+			$black = imagecolorallocate($imageDestination, 0, 0, 0);
+			imagecolortransparent($imageDestination, $black);
+		}
+
+		if (!imagecopyresampled($imageDestination, $image, 0, 0, 0, 0, $newWidth, $newHeight, $imageSize[0], $imageSize[1]))
+		{
+			return false;
+		}
+
+		imagedestroy($image);
+		
+		switch ($mediaMimeType)
+		{
+			case 'image/jpeg' :
+				return imagejpeg($imageDestination, $pathOut, $quality);
+				break;
+			case 'image/png' :
+				return imagepng($imageDestination, $pathOut, $quality);
+				break;
+			default :
+				return false;
+				break;
+		}
 	}
 }
 
