@@ -11,8 +11,15 @@ class pictures extends Controller
 	public function show ($validatedChallengeId)
 	{
 		
+		global $db;
+		if (!$validatedChallenges = $db->getFromTableWhere('validated_challenges', ['id' => $validatedChallengeId]))
+		{
+			$router = new Router();
+			$router->return404();
+		}
 
 		return $this->render("picturesShow", array(
+			'validatedChallenge' => $validatedChallenges[0],
 		));
 	}
 
