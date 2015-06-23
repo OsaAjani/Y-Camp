@@ -4,15 +4,6 @@
  */
 class connexion extends Controller
 {
-	public function before ()
-	{
-		if (!isset($_SESSION['connected']) || !$_SESSION['connected'])
-		{
-			header('Location: ' . HTTP_PWD);
-			die();
-		}
-	}
-
 	/**
 	 * Permet de déconnecter un utilisateur
 	 */
