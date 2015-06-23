@@ -93,22 +93,32 @@ function targetNavigate(cible)
 		animation = 'slideInRight';
 	}
 
-	if (targetUrl && targetChange)
-	{
-		jQuery('#spinner').show();
+	targetNavigateRequesting(targetUrl, targetChange, animation);
+}
 
-		jQuery('#' + targetChange).remove();
-		jQuery.get(targetUrl, function(data)
-		{
-			jQuery('#first-container').append(data);
-		}).success(function ()
-		{
-			changeTile(jQuery('#' + targetChange), animation);
-		}).done(function ()
-		{
-			jQuery('#spinner').hide();
-		});
+/**
+ * Cette fonction contient la partie requete de targetNavigate
+ */
+function targetNavigateRequesting (targetUrl, targetChange, animation)
+{
+	if (!targetUrl || ! targetChange || !animation)
+	{
+		return false;
 	}
+
+	jQuery('#spinner').show();
+
+	jQuery('#' + targetChange).remove();
+	jQuery.get(targetUrl, function(data)
+	{
+		jQuery('#first-container').append(data);
+	}).success(function ()
+	{
+		changeTile(jQuery('#' + targetChange), animation);
+	}).done(function ()
+	{
+		jQuery('#spinner').hide();
+	});
 }
 
 jQuery(document).ready(function()
@@ -118,6 +128,13 @@ jQuery(document).ready(function()
 		jQuery('#spinner').show();
 		jQuery.get(HTTP_PWD + 'challenges', function (data)
 		{
+			//On ajoute la page à l'historique
+			window.history.pushState({
+				targetUrl: HTTP_PWD + 'challenges',
+				targetChange: 'challenges',
+				animation: 'slideInLeft',
+			}, 'titre', HTTP_PWD + '#' + HTTP_PWD + 'challenges');
+
 			jQuery('#first-container').prepend(data);
 			changeTile(jQuery('#challenges'), 'slideInRight');	
 		}).done(function ()
@@ -125,6 +142,15 @@ jQuery(document).ready(function()
 			jQuery('#spinner').hide();
 		});
 	}
+
+	window.onpopstate = function (event) {
+		if (event.state != null)
+		{
+			var state = event.state;
+			targetNavigateRequesting(state.targetUrl, state.targetChange, state.animation);
+		}
+	};
+
 
 	jQuery('#first-container').on('click', '#copy-password', function(e)
 	{
@@ -134,12 +160,32 @@ jQuery(document).ready(function()
 	jQuery('#first-container').on('click', '.control, .goto', function(e)
 	{
 		e.preventDefault();
+
+		var cible = jQuery(this);
+		var targetUrl = cible.attr('target');
+		var targetChange = cible.attr('target-id');
+		var animation = cible.attr('animation');
+
+		if (!animation)
+		{
+			animation = 'slideInLeft';
+		}
+
+		//On ajoute la page à l'historique
+		window.history.pushState({
+			targetUrl: targetUrl,
+			targetChange: targetChange,
+			animation: animation
+		}, 'titre', HTTP_PWD + '#' + targetUrl);
+
 		targetNavigate(jQuery(this));
 	});
 
 	jQuery('#first-container').on('submit', '.ajax-form', function (e)
 	{
 		e.preventDefault();
+
+		var cible = jQuery(this);
 		var form = jQuery(this);
 		var formData = new FormData(form[0]);
 		jQuery('#spinner').show();
@@ -154,6 +200,22 @@ jQuery(document).ready(function()
 			{
 				if (data.success)
 				{
+					var targetUrl = cible.attr('target');
+					var targetChange = cible.attr('target-id');
+					var animation = cible.attr('animation');
+
+					if (!animation)
+					{
+						animation = 'slideInLeft';
+					}
+
+					//On ajoute la page à l'historique
+					window.history.pushState({
+						targetUrl: targetUrl,
+						targetChange: targetChange,
+						animation: animation
+					}, 'titre', HTTP_PWD + '#' + targetUrl);
+
 					targetNavigate(form);
 				}
 				else

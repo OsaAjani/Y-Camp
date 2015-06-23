@@ -55,7 +55,7 @@ jQuery('document').ready(function()
 			{
 				//On ajoute une image
 				jQuery('#first-container').find('#background-images .line-images').last().append('<div class="images-div"></div>');
-				jQuery('#first-container').find('#overlay-images .line-images').last().append('<div class="images-div goto" target="' + HTTP_PWD + 'pictures/show/' + challenges[l].id + '" target-id="pictures-show" animation="flipInY"><span class="ion-eye"></span></div>');
+				jQuery('#first-container').find('#overlay-images .line-images').last().append('<div class="images-div goto" target="' + HTTP_PWD + 'pictures/show/' + challenges[l].id + '" target-id="pictures-show"><span class="ion-eye"></span></div>');
 
 				//On fixe ses styles
 				jQuery('#first-container').find('#background-images .images-div').last().css({
