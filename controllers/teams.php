@@ -62,9 +62,8 @@ class teams extends Controller
 	/**
 	 * Cette fonction permet d'afficher les users de la team
 	 * @param $teamId : l'id de la team
-	 * @param bool $challengePage : permet de savoir si l'on vient de la page challenge (TRUE) ou de la page ranking (FALSE)
 	 */
-	public function show ($teamId, $challengePage = FALSE)
+	public function show ($teamId)
 	{
 		global $db;
 
@@ -93,7 +92,6 @@ class teams extends Controller
 			'team' => $team,
 			'users' => $users,
 			'points' => $points,
-			'challengePage' => $challengePage,
 		));
 	}
 

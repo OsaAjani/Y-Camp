@@ -1,5 +1,5 @@
 <div id="teams-show" class="tile">
-	<?php if ($challengePage) { ?>
+	<?php 	if (isset($_SESSION['lastIntersection']) && $_SESSION['lastIntersection'] == 'challenge') { ?>
 		<span class="go-back-arrow control ion-ios-arrow-thin-left" target="<?php secho($this->generateUrl('challenges')); ?>" target-id="challenges" animation="slideInLeft" ></span>	
 	<?php } else { ?>
 		<span class="go-back-arrow control ion-ios-arrow-thin-left" target="<?php secho($this->generateUrl('ranking')); ?>" target-id="ranking" animation="slideInLeft" ></span>
@@ -22,7 +22,7 @@
 			<span class="ion-ios-person" id="infos-container-teams-show-user" ></span>
 			<?php foreach ($users as $user) { ?>
 				<div class="info">
-					<span class="control col-xs-12" target="<?php secho($this->generateUrl('users', 'show', [$user['id'], TRUE])); ?>" target-id="users-show"><?php secho($user['firstname']." ".$user['lastname']); ?></span>
+					<span class="control col-xs-12" target="<?php secho($this->generateUrl('users', 'show', [$user['id']])); ?>" target-id="users-show"><?php secho($user['firstname']." ".$user['lastname']); ?></span>
 				</div>
 				<div class="clearfix"></div>
 			<?php } ?>

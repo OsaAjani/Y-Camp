@@ -7,9 +7,8 @@ class users extends Controller
 	/**
 	 * Page de users par défaut
 	 * @param int $usersId : Le numéro du user
-	 * @param bool $teamShowPage : permet de savoir si l'on vient de la page teamsShow ou pas
 	 */	
-	public function show ($usersId, $teamShowPage = FALSE)
+	public function show ($usersId)
 	{
 		global $db;
 		if (!$users = $db->getFromTableWhere('users', ['id' => $usersId]))
@@ -23,7 +22,6 @@ class users extends Controller
 		return $this->render("usersShow", array(
 			'user' => $users[0],
 			'birthdate' => $birthdate,
-			'teamShowPage' => $teamShowPage,
 		));
 	}
 }
