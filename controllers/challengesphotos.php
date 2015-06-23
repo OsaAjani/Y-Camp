@@ -281,10 +281,8 @@ class challengesphotos extends Controller
 		}
 
 		$imageSize = getimagesize($path);
-		$ratioOrigin = $imageSize[0] / $imageSize[1]; //On a le ratio de l'image d'origine, width/height
-
 		$newHeight = 500;
-		$newWidth = $ratioOrigin / ($imageSize[1] / $newHeight);
+		$newWidth = $imageSize[0] / ($imageSize[1] / $newHeight);
 
 		$imageDestination = imagecreatetruecolor($newWidth, $newHeight);
 
