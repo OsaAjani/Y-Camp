@@ -35,6 +35,7 @@ class ranking extends Controller
 		foreach ($teams as $value => $key) {
 		    $point[$value]  = $key['points'];
 		}
+		array_multisort($point, SORT_DESC, $teams);
 
 		$_SESSION['lastIntersection'] = 'ranking';
 
