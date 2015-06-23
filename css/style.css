@@ -297,6 +297,7 @@ a, a:focus, a:hover, a:active
 	left: 5vw;
 	font-size: 40px;
 	color: #fff;
+	z-index: 999;
 }
 
 .icons-top
@@ -643,6 +644,38 @@ a, a:focus, a:hover, a:active
 	background-color: rgba(52, 152, 219, 0.8);
 	line-height: 7vh;
 	padding: 3vh 5vh;
+}
+
+/**********************/
+/* PICTURES SHOW PAGE */
+/**********************/
+#pictures-show
+{
+	background-color: #1DABB8;
+}
+
+#pictures-show-picture-container
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	line-height: 100vh;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#pictures-show-picture.use-full-width
+{
+	width: 100%;
+	height: auto;
+}
+
+#pictures-show-picture.use-full-height
+{
+	height: 100%;
+	width: auto;
 }
 
 /***************************/
