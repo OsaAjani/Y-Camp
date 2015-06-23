@@ -461,7 +461,7 @@ a, a:focus, a:hover, a:active
 	background-color: rgba(255, 255, 255, 0.1);
 }
 
-#photo-add-form
+#photo-input
 {
 	display: none;
 }
