@@ -269,11 +269,11 @@ class challengesphotos extends Controller
 		{
 			case 'image/jpeg' :
 				$image = imagecreatefromjpeg($path);
-				$quality = 70;
+				$quality = 100;
 				break;
 			case 'image/png' :
 				$image = imagecreatefrompng($path);
-				$quality = 7;
+				$quality = 9;
 				break;
 			default :
 				return false;
