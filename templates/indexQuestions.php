@@ -44,7 +44,9 @@
 
 		<h3 class="index-questions-question">Quelles technologies sont utilisées par l'application ?</h3>
 		<div class="index-questions-reponse">
-			L'application a été développée en HTML, CSS, PHP et JAVASCRIPT.
+			L'application a été développée en HTML, CSS, PHP et JAVASCRIPT.<br/>
+			Elle utilise le framework PHP Descartes, développé par les auteurs du site de tutoriels sur la <a href="http://raspbian-france.fr" title="Raspbian-France, la Raspberry Pi en français">Raspberry Pi</a>, Raspbian-France.<br/>
+			L'ensemble du code source est disponible sur GitHub à l'adresse suivante <span class="linkto" target="https://github.com/OsaAjani/Y-Camp">https://github.com/OsaAjani/Y-Camp</span>.
 		</div>
 	</div>
 </div>

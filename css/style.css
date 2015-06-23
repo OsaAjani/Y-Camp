@@ -132,7 +132,16 @@ a, a:focus, a:hover, a:active
 	color: #fff;
 }
 
+.linkto:hover
+{
+	cursor: pointer;
+	text-decoration: underline;
+}
 
+.linkto
+{
+	font-style: italic;
+}
 
 /****************/
 /* STYLE ADMIN */
