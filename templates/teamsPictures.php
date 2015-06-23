@@ -48,6 +48,7 @@
 
 		//On rempli le dom
 		var i = 0;
+		var l = 0;
 		length = imgsArray.length;
 		while (i < length) //Chaque ligne
 		{
@@ -57,7 +58,6 @@
 			jQuery('#first-container').find('#overlay-images .line-images').last().css('height', imgsHeight + '%');
 
 			var j = 0;
-			var l = 0;
 			var length2 = imgsArray[i].length;
 			while (j < length2) //Chaque colonne
 			{
