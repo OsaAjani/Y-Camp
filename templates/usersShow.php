@@ -4,7 +4,7 @@
 
 	<div class="text-center">
 	<div class="img-users overflow">
-		<img alt="photo d'identitée" src="<?php echo HTTP_PWD_IMG . "users/" . $user['id'] . '.jpg'; ?>" />
+		<img alt="photo d'identitée" src="<?php secho(HTTP_PWD_IMG . "users/" . $user['firstname'] . '_' . $user['lastname'] . 'jpg'); ?>" />
 	</div>
 	</div>
 	<div class="info-user text-center">
