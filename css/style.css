@@ -793,7 +793,7 @@ a, a:focus, a:hover, a:active
 
 .img-users
 {
-	border-color: #ffffff;
+    border-color: #ffffff;
     border-radius: 9999px;
     border-style: solid;
     border-width: 2px;
@@ -802,7 +802,8 @@ a, a:focus, a:hover, a:active
     width: 146px;
     margin-top: 10px;
     margin-bottom: 5vh;
-    
+    background-position: center;
+    background-size: cover;
 }
 
 .img-users img 
