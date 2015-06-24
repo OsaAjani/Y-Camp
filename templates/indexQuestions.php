@@ -36,10 +36,9 @@
 		<h3 class="index-questions-question">Qui prévenir en cas de problèmes d'orientations ?</h3>
 		<div class="index-questions-reponse">
 			Nous nous tenons à disposition pour répondre à vos questions par téléphone : <br />
-			 Appelez le xxxxxxxxxx et dites "xxxxxxxxxx", <br />
-			 ou le xxxxxxxxxx et dites "xxxxxxxxxx"<br />
-			 ou le numéro complémentaire xxxxxxxxxx et dites "xxxxxxxxxx"
-
+			 Appelez le 0788201383 et dites "Pauline", <br />
+			 ou le 0682892888 et dites "Maud"<br />
+			 ou le numéro complémentaire 0540012806 et dites "BootCamp"
 		</div>
 
 		<h3 class="index-questions-question">Quelles technologies sont utilisées par l'application ?</h3>

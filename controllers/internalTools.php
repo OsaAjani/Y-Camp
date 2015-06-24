@@ -60,6 +60,18 @@
 		}
 
 		/**
+		 * Cette fonction retourne une chaine en minuscule en ne gardant que les lettres et chiffres et en les passant en minuscules
+		 * @param string $str : La chaine à modifier
+		 * @return string : La chaine filtrée
+		 */
+		public static function sanitizeAndSubstr ($str)
+		{
+			$str = self::removeAccents($str);
+			$str = mb_convert_case($str, MB_CASE_LOWER);
+			return preg_replace('#[^a-z0-9]#iu', '', $str);
+		}
+
+		/**
 		 * Cette fonction vérifie si un mot de passe correspond à des critères de sécurités fixés
 		 * @param string $password : Le password à vérifier
 		 * @param int $length : La taille du mot de passe
@@ -393,6 +405,8 @@
 			$dst_w = $newWidth;
 			$dst_h = $height;
 			$dst_image = imagecreatetruecolor($newWidth, $height);
+			$result = imagejpeg($dst_image, $outfile, $quality);
+			return $result;
 
 			//On assure la transparence des fichiers png
 			if ($imageSize['mime'] == 'image/png')
@@ -412,7 +426,7 @@
 				$src_y = 0;
 				$src_w = $newWidth;
 				$src_h = $height;
-				$src_image = imagescale($src_image, $originalNewWidth);
+				$src_image = imagescale($src_image, $originalNewWidth, $height);
 			}
 			else //Sinon, si l'image de base est plus en hauteur que voulue, on doit redimensionner la largeur et recentrer en hauteur
 			{
@@ -423,7 +437,7 @@
 				$src_y = 0;
 				$src_w = $newWidth;
 				$src_h = $height;
-				$src_image = imagescale($src_image, $newWidth);
+				$src_image = imagescale($src_image, $newWidth, $height);
 			}
 
 			//On a toutes les infos necessaires, on va faire notre redimension

@@ -3,7 +3,8 @@
 	<h1><?php secho($user['firstname']." ".$user['lastname']); ?></h1>
 
 	<div class="text-center">
-	<div class="img-users overflow" style="background-image: url('<?php secho(HTTP_PWD_IMG . "users/" . $user['firstname'] . '_' . $user['lastname'] . '.jpg'); ?>');"></div>
+	<div class="img-users overflow" style="background-image: url('<?php secho(HTTP_PWD_IMG . "users/" . internalTools::sanitizeAndSubstr($user['firstname']) . '_' . internalTools::sanitizeAndSubstr($user['lastname']) . '.jpg'); ?>');" >
+	</div>
 	</div>
 	<div class="info-user text-center">
 		<label class="col-xs-12 col-md-6 md-right bold"> Sexe : </label><span class="col-xs-12 col-md-6 md-left no-padding" ><?php echo $user['sexe'] ? 'Homme' : 'Femme'; ?></span>
