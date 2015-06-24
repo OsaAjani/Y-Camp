@@ -59,7 +59,7 @@ jQuery('document').ready(function()
 
 				//On fixe ses styles
 				jQuery('#first-container').find('#background-images .images-div').last().css({
-					'background-image': "url('" + HTTP_PWD + "img/challenges/" + imgsArray[i][j] + "')",
+					'background-image': "url('" + HTTP_PWD + "img/challenges/poor_" + imgsArray[i][j] + "')",
 					'height': '100%', 
 					'width': imgsWidth + '%'
 				});

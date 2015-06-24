@@ -252,6 +252,12 @@ jQuery(document).ready(function()
 		e.preventDefault();
 		jQuery(this).parents('form').submit();
 	});
+
+	jQuery('#first-container').on('click', '.linkto', function (e)
+	{
+		e.preventDefault();
+		window.location = jQuery(this).attr('target');
+	});
 });
 
 

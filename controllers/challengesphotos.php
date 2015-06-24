@@ -66,7 +66,7 @@ class challengesphotos extends Controller
 		if ($validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id'], 'challenge_id' => $challengeId]))
 		{
 			$challenge['valid'] = true;
-			$challenge['photo'] = HTTP_PWD_IMG . 'challenges/' . $validChallenges[0]['document'];
+			$challenge['photo'] = HTTP_PWD_IMG . 'challenges/poor_' . $validChallenges[0]['document'];
 		}
 
 		return $this->render('challengesphotosShow', array(
@@ -269,11 +269,11 @@ class challengesphotos extends Controller
 		{
 			case 'image/jpeg' :
 				$image = imagecreatefromjpeg($path);
-				$quality = 50;
+				$quality = 100;
 				break;
 			case 'image/png' :
 				$image = imagecreatefrompng($path);
-				$quality = 6;
+				$quality = 9;
 				break;
 			default :
 				return false;
