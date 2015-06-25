@@ -23,4 +23,6 @@
 		<span class="ion-ios-arrow-thin-down infos-container-arrow-end" ></span>
 	</div>
 </div>
-
+<script>
+is_connected = 1;
+</script>

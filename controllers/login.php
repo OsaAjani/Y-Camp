@@ -47,7 +47,7 @@ class login extends Controller
 	{
 		session_unset();
 		session_destroy();
-		$this->index();
+		return header('Location: ' . $this->generateUrl("admin","index"));
 	}
 	
 }
