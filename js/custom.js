@@ -174,7 +174,7 @@ jQuery(document).ready(function()
 		});
 
 		//On lance le check des popups toutes les 30 secondes
-		//intervalPopups = setInterval('checkPopups()', 3000);
+		intervalPopups = setInterval('checkPopups()', 30000);
 	}
 
 	window.onpopstate = function (event) {
