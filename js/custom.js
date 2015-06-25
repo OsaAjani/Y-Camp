@@ -75,10 +75,6 @@ function changeTile (target, animationIn)
 	changeAnimate(target, animationIn);
 }
 
-function copyToClipboard(text) {
-    window.prompt("Pour copier : Ctrl+C", text);
-}
-
 /**
  * Cette fonction contient le système de navigation par target
  */
@@ -121,6 +117,41 @@ function targetNavigateRequesting (targetUrl, targetChange, animation)
 	});
 }
 
+/**
+ * Cette fonction permet de recupérer les popups à afficher
+ */
+function checkPopups ()
+{
+	
+	jQuery.get(HTTP_PWD + 'popups/check', function (data)
+	{
+		if (data.messages.length)
+		{
+			jQuery.each(data.messages, function (index, value)
+			{
+				var d = new Date();
+				var uniqid = "" + d.getMinutes() + d.getSeconds() + d.getMilliseconds();
+				var popup = '<div class="modal fade modal_' + uniqid + '" id="' + uniqid + '" role="dialog">' +
+						'<div class="modal-dialog modal-lg">' +
+							'<div class="modal-content">' +
+								'<div class="modal-header">' +
+									'<button type="button" class="close" data-dismiss="modal">&times;</button>' + 
+									'<h4 class="modal-title">Y-camp</h4>' +
+								'</div>' + 
+								'<div class="modal-body">' +
+									'<p>' + value + '</p>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+					'</div>' +
+				'</div>';
+				jQuery('#first-container').prepend(popup);
+				jQuery('#first-container').find('#' + uniqid).modal('show');
+			});
+		}
+	}, 'json');
+}
+
 jQuery(document).ready(function()
 {
 	if (is_connected)
@@ -141,6 +172,9 @@ jQuery(document).ready(function()
 		{
 			jQuery('#spinner').hide();
 		});
+
+		//On lance le check des popups toutes les 30 secondes
+		//intervalPopups = setInterval('checkPopups()', 3000);
 	}
 
 	window.onpopstate = function (event) {
@@ -150,12 +184,6 @@ jQuery(document).ready(function()
 			targetNavigateRequesting(state.targetUrl, state.targetChange, state.animation);
 		}
 	};
-
-
-	jQuery('#first-container').on('click', '#copy-password', function(e)
-	{
-		copyToClipboard(jQuery('#first-container').find('#decrypted-password').text());
-	});
 
 	jQuery('#first-container').on('click', '.control, .goto', function(e)
 	{

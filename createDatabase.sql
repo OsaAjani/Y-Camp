@@ -64,3 +64,32 @@ CREATE TABLE IF NOT EXISTS validated_challenges
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
+
+-- Create table of popups
+CREATE TABLE IF NOT EXISTS popups
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	message VARCHAR(1000) NOT NULL,
+	start_at TIMESTAMP NOT NULL,
+	end_at TIMESTAMP NOT NULL,
+	PRIMARY KEY (id)
+);
+
+-- Create table of displayed_popups
+CREATE TABLE IF NOT EXISTS displayed_popups
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	popup_id INT NOT NULL,
+	user_id INT NOT NULL,
+	PRIMARY KEY (id),
+	INDEX displayed_popups_popup_id (popup_id),
+	INDEX displayed_popups_user_id (user_id),
+	FOREIGN KEY (popup_id)
+		REFERENCES popups(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	FOREIGN KEY (user_id)
+		REFERENCES users(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);

@@ -207,6 +207,11 @@ a, a:focus, a:hover, a:active
 	cursor: pointer;
 }
 
+.modal
+{
+	color: #515151;
+}
+
 /*********/
 /* TILES */
 /*********/
