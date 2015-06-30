@@ -40,6 +40,10 @@
 			 ou le 0682892888 et dites "Maud"<br />,
 			 ou le numéro complémentaire 0540012806 et dites "BootCamp".
 		</div>
+		<h3 class="index-questions-question">Je n'ai pas de connection internet ou mon débit est lent, que faire ?</h3>
+		<div class="index-questions-reponse">
+			Vous pouvez attendre d'être revenu au campus pour uploader vos photos via la wifi (dans ce cas, prenez directement les photo avec l'application de votre téléphone et pas via Y-Camp). Le transfert sera plus rapide et vous ne consomerez pas votre data !			
+          	</div>
 
 		<h3 class="index-questions-question">Quelles technologies sont utilisées par l'application ?</h3>
 		<div class="index-questions-reponse">
