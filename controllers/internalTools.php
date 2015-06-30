@@ -361,104 +361,69 @@
 		}
 
 		/**
-		 * Cette fonction permet de redimensionner une image PNG OU JPG par rapport à une hauteur maximale et un ratio de cette hauteur en largeur, le tout sans deformations, avec un crop si necessaires
-		 * @param string $image : L'adresse de l'image à redimensionner
-		 * @param string $outfile : L'adresse de l'image de sortie
-		 * @param int $height : La hauteur à fixer
-		 * @param float $ratio : Le ratio à appliquer pour la width
-		 * @param int $quality : La qualité de l'image (0-9 pour png et 0-100 pour jpg), par défaut à null, donnera 9 pour png et 100 pour jpeg
-		 * @return boolean : true si la transformation a reussi, false sinon
+		 * Cette fonction permet de fabriquer la version poor d'une photo (en la redimensionnant en gardant le ratio)
+		 * @param string $path : Le chemin vers le fichier
+		 * @param string $outPath : Le chemin vers le fichier de sortie
+		 * @param int $newHeight : La nouvelle hauteur à donner à la photo
+		 * @param array $quality : La qualité à donné au format ['jpg' => 0-100, 'png' => 0-9] (défault, 100 & 9)
 		 */
-		public static function resizeImageAndCropForHeightAndRatio($image, $outfile, $height, $ratio, $quality = null)
+		public static function poorPhoto ($path, $pathOut, $newHeight, $quality = ['jpg' => 100, 'png' => 9])
 		{
+			//On va calculer le ratio originale
 			$mediaInfo = new finfo(FILEINFO_MIME_TYPE);
-	                $mediaMimeType = $mediaInfo->file($image);
+			$mediaMimeType = $mediaInfo->file($path);
 			if ($mediaMimeType === false)
 			{
 				return false;
 			}
-
-			//On switch pour fixer la qualité et recuperer l'image
+			
+			//On adapte en fonction du mediaMimeType
 			switch ($mediaMimeType)
 			{
-				case 'image/jpeg' : 
-					$quality = ($quality === null) ? 100 : $quality;
-					$src_image = imagecreatefromjpeg($image);
+				case 'image/jpeg' :
+					$image = imagecreatefromjpeg($path);
+					$quality = $quality['jpg'];
 					break;
-				case 'image/png' : 
-					$quality = ($quality === null) ? 9 : $quality;
-					$src_image = imagecreatefrompng($image);
+				case 'image/png' :
+					$image = imagecreatefrompng($path);
+					$quality = $quality['png'];
 					break;
 				default :
 					return false;
+					break;
 			}
 
+			$imageSize = getimagesize($path);
+			$newWidth = $imageSize[0] / ($imageSize[1] / $newHeight);
 
-			$imageSize = getimagesize($image);
+			$imageDestination = imagecreatetruecolor($newWidth, $newHeight);
 
-			$ratioWidthHeight = $imageSize[0] / $imageSize[1];
-
-			$newWidth = ceil($height * $ratio);
-
-			$dst_x = 0;
-			$dst_y = 0;
-			$dst_w = $newWidth;
-			$dst_h = $height;
-			$dst_image = imagecreatetruecolor($newWidth, $height);
-			$result = imagejpeg($dst_image, $outfile, $quality);
-			return $result;
-
-			//On assure la transparence des fichiers png
-			if ($imageSize['mime'] == 'image/png')
+			//On gère le png
+			if ($mediaMimeType == 'image/png')
 			{
-				$black = imagecolorallocate($dst_image, 0, 0, 0);
-				imagecolortransparent($dst_image, $black);
+				$black = imagecolorallocate($imageDestination, 0, 0, 0);
+				imagecolortransparent($imageDestination, $black);
 			}
 
-			//On choisi le comportement à adopter pour le redimensionnement
-			//Si l'image de base est plus en largeur que voulu, on doit redimensionner la hauteur est recentrer en largeur
-			if ($ratioWidthHeight > $ratio)
-			{
-				//On calcul la taille qu'aurait l'image originale si on la scaler sans recouper
-				$originalNewWidth = ceil($ratioWidthHeight * $height);
-				$widthReste = ceil(($originalNewWidth - $newWidth) / 2);
-				$src_x = $widthReste;
-				$src_y = 0;
-				$src_w = $newWidth;
-				$src_h = $height;
-				$src_image = imagescale($src_image, $originalNewWidth, $height);
-			}
-			else //Sinon, si l'image de base est plus en hauteur que voulue, on doit redimensionner la largeur et recentrer en hauteur
-			{
-				$ratioHeightWidth = $imageSize[1] / $imageSize[0];
-				$originalNewHeight = ceil($height * $ratioHeightWidth);
-				$heightReste = ceil(($originalNewHeight - $height) / 2);
-				$src_x = 0;
-				$src_y = 0;
-				$src_w = $newWidth;
-				$src_h = $height;
-				$src_image = imagescale($src_image, $newWidth, $height);
-			}
-
-			//On a toutes les infos necessaires, on va faire notre redimension
-			if (!imagecopyresampled($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h))
+			if (!imagecopyresampled($imageDestination, $image, 0, 0, 0, 0, $newWidth, $newHeight, $imageSize[0], $imageSize[1]))
 			{
 				return false;
 			}
 
-			//On ecrit l'image et on retourne le resultat de l'opération
-			switch ($imageSize['mime'])
+			imagedestroy($image);
+			
+			switch ($mediaMimeType)
 			{
-				case 'image/jpeg' : 
-					$result = imagejpeg($dst_image, $outfile, $quality);
+				case 'image/jpeg' :
+					return imagejpeg($imageDestination, $pathOut, $quality);
 					break;
-				case 'image/png' : 
-					$result = imagepng($dst_image, $outfile, $quality);
+				case 'image/png' :
+					return imagepng($imageDestination, $pathOut, $quality);
 					break;
 				default :
 					return false;
+					break;
 			}
-
-			return $result;
 		}
+
 	}

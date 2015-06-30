@@ -17,7 +17,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo HTTP_PWD_CSS; ?>responsive-font.min.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo HTTP_PWD_CSS; ?>animate.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo HTTP_PWD_CSS; ?>style.css" />
-		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,600,500,800,900,700' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,600,500,800,900,700' rel='stylesheet' type='text/css'>
 
 		<!-- JS  -->
 		<script type="text/javascript" src="<?php echo $this->generateUrl('phptojs'); ?>"></script>

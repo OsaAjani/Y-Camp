@@ -809,6 +809,20 @@ a, a:focus, a:hover, a:active
     margin-bottom: 5vh;
     background-position: center;
     background-size: cover;
+    position: relative;
+}
+
+.img-users-overlay
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	border-radius: 100;
+	line-height: 146px;
+	font-size: 60px;
+	background-color: rgba(0, 0, 0, 0.2);
 }
 
 /********************/
