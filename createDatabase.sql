@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS users
 	school VARCHAR(100) NOT NULL,
 	studies VARCHAR(255) NOT NULL,
 	city VARCHAR(255) NOT NULL,
+	photo VARCHAR(100),
 	PRIMARY KEY (id),
 	UNIQUE (email),
 	INDEX users_team_id (team_id),

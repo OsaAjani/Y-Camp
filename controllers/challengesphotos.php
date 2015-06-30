@@ -194,7 +194,7 @@ class challengesphotos extends Controller
 			return false;
 		}
 
-		if (!$this->poorPhoto(PWD_IMG . 'challenges/' . $_SESSION['tmp_photos'][$challengeId], PWD_IMG . 'challenges/poor_' . $_SESSION['tmp_photos'][$challengeId]))
+		if (!internalTools::poorPhoto(PWD_IMG . 'challenges/' . $_SESSION['tmp_photos'][$challengeId], PWD_IMG . 'challenges/poor_' . $_SESSION['tmp_photos'][$challengeId], 500))
 		{
 			$result['success'] = 0;
 			$result['error'] = 'Impossible de compresser la photo.';
@@ -247,71 +247,6 @@ class challengesphotos extends Controller
 		$this->render('challengesphotosAskForEdit', array(
 			'challenge' => $challenge,
 		));
-	}
-
-	/**
-	 * Cette fonction permet de fabriquer la version poor d'une photo
-	 * @param string $path : Le chemin vers le fichier
-	 * @param string $outPath : Le chemin vers le fichier de sortie
-	 */
-	private function poorPhoto ($path, $pathOut)
-	{
-		//On va calculer le ratio originale
-		$mediaInfo = new finfo(FILEINFO_MIME_TYPE);
-		$mediaMimeType = $mediaInfo->file($path);
-		if ($mediaMimeType === false)
-		{
-			return false;
-		}
-		
-		//On adapte en fonction du mediaMimeType
-		switch ($mediaMimeType)
-		{
-			case 'image/jpeg' :
-				$image = imagecreatefromjpeg($path);
-				$quality = 100;
-				break;
-			case 'image/png' :
-				$image = imagecreatefrompng($path);
-				$quality = 9;
-				break;
-			default :
-				return false;
-				break;
-		}
-
-		$imageSize = getimagesize($path);
-		$newHeight = 500;
-		$newWidth = $imageSize[0] / ($imageSize[1] / $newHeight);
-
-		$imageDestination = imagecreatetruecolor($newWidth, $newHeight);
-
-		//On gère le png
-		if ($mediaMimeType == 'image/png')
-		{
-			$black = imagecolorallocate($imageDestination, 0, 0, 0);
-			imagecolortransparent($imageDestination, $black);
-		}
-
-		if (!imagecopyresampled($imageDestination, $image, 0, 0, 0, 0, $newWidth, $newHeight, $imageSize[0], $imageSize[1]))
-		{
-			return false;
-		}
-
-		imagedestroy($image);
-		
-		switch ($mediaMimeType)
-		{
-			case 'image/jpeg' :
-				return imagejpeg($imageDestination, $pathOut, $quality);
-				break;
-			case 'image/png' :
-				return imagepng($imageDestination, $pathOut, $quality);
-				break;
-			default :
-				return false;
-				break;
-		}
 	}
 }
 
