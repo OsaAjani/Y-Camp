@@ -29,6 +29,7 @@ class users extends Controller
 
 		$birthdate = new DateTime($users[0]['birthdate']);
 		$birthdate = $birthdate->format('d/m/Y');
+		$birthdate == '00/00/0000' ? 'Inconnue' : $birthdate;
 
 		return $this->render("usersShow", array(
 			'user' => $user,

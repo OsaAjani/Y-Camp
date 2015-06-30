@@ -27,7 +27,7 @@
 		<div class="clearfix"></div>
 		<label class="col-xs-12 col-md-6 md-right bold"> École : </label><span class="col-xs-12 col-md-6 md-left no-padding" ><?php secho($user['school']) ; ?></span>
 		<div class="clearfix"></div>
-		<label class="col-xs-12 col-md-6 md-right bold"> Dernier diplôme : </label><span class="col-xs-12 col-md-6 md-left no-padding" ><?php secho($user['studies']) ; ?></span>
+		<label class="col-xs-12 col-md-6 md-right bold"> Dernier diplôme : </label><span class="col-xs-12 col-md-6 md-left no-padding" ><?php secho($user['studies'] ? $user['studies'] : 'Inconnu') ; ?></span>
 		<div class="clearfix"></div>
 		<label class="col-xs-12 col-md-6 md-right bold"> ville : </label><span class="col-xs-12 col-md-6 md-left no-padding" ><?php secho($user['city']) ; ?></span>
 	</div>
