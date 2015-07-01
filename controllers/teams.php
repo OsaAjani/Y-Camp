@@ -134,4 +134,79 @@ class teams extends Controller
 		));
 	}
 
+	/**
+	 * Cette fonction permet d'afficher la page des défis d'une équipe
+	 * @param int $teamId : L'id de la team à afficher
+	 */
+	public function challenges ($teamId)
+	{
+		global $db;
+
+		$teams = $db->getFromTableWhere('teams', ['id' => $teamId]);
+		$team = $teams[0];
+
+		$challengesPhotos = $db->getFromTableWhere('challenges', ['kind' => 1]);
+		$challengesObjects = $db->getFromTableWhere('challenges', ['kind' => 0]);
+		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id']]);
+
+		$totalPoints = 0;
+		foreach ($challengesPhotos as $key => $challengePhoto)
+		{
+			$i = 0;
+			$found = false;
+			foreach ($validChallenges as $key2 => $validChallenge)
+			{
+				if ($validChallenge['challenge_id'] == $challengePhoto['id'])
+				{
+					$found = true;
+					$totalPoints += $challengePhoto['points'];
+				}
+				$i++;
+			}
+			
+			if (!$found)
+			{
+				unset($challengesPhotos[$key]);
+			}
+		}
+
+		foreach ($challengesObjects as $key => $challengeObject)
+		{
+			$i = 0;
+			$found = false;
+			foreach ($validChallenges as $key2 => $validChallenge)
+			{
+				if ($validChallenge['challenge_id'] == $challengeObject['id'])
+				{
+					$found = true;
+					$totalPoints += $challengeObject['points'];
+				}
+				$i++;
+			}
+			
+			if (!$found)
+			{
+				unset($challengesObjects[$key]);
+			}
+		}
+
+		foreach ($challengesPhotos as &$challengePhoto)
+		{
+			foreach ($validChallenges as $validChallenge)
+			{
+				if ($challengePhoto['id'] == $validChallenge['challenge_id'])
+				{
+					$challengePhoto['validated_id'] = $validChallenge['id'];
+				}
+			}
+		}
+		
+		return $this->render('teamsChallenges', array(
+			'challengesPhotos' => $challengesPhotos,
+			'challengesObjects' => $challengesObjects,
+			'nbValidChallenges' => count($validChallenges),
+			'totalPoints' => $totalPoints,
+			'team' => $team,
+		));		
+	}
 }

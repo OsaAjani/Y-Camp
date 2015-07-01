@@ -11,6 +11,7 @@
 			<span class="control ion-ios-gear-outline" target="<?php secho($this->generateUrl('teams', 'edit')); ?>" target-id="teams-edit"></span>
 		<?php }?>
 			<span class="control ion-images" target="<?php secho($this->generateUrl('teams', 'pictures', [$team['id']])); ?>" target-id="teams-pictures"></span>
+			<span class="control ion-trophy" target="<?php secho($this->generateUrl('teams', 'challenges', [$team['id']])); ?>" target-id="teams-challenges"></span>
 		
 	</div>
 

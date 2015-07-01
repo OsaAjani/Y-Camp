@@ -338,6 +338,11 @@ a, a:focus, a:hover, a:active
 	border-left: 1px solid #fff;
 }
 
+.infos-container.no-border
+{
+	border: none;
+}
+
 .infos-container-round
 {
 	font-size: 35px;
@@ -773,10 +778,10 @@ a, a:focus, a:hover, a:active
 	margin-bottom: 15px;
 }
 
-/***********************/
-/* PASSWORDS EDIT PAGE */
-/***********************/
-#passwords-edit
+/*************************/
+/* TEAMS CHALLENGES PAGE */
+/*************************/
+#teams-challenges
 {
 	background-color: #c0392b;
 }
