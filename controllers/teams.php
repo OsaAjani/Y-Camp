@@ -149,6 +149,8 @@ class teams extends Controller
 		$challengesObjects = $db->getFromTableWhere('challenges', ['kind' => 0]);
 		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $teamId]);
 
+		$totalChallenges = count($challengesPhotos) + count($challengesObjects);
+
 		$totalPoints = 0;
 		foreach ($challengesPhotos as $key => $challengePhoto)
 		{
@@ -206,6 +208,7 @@ class teams extends Controller
 			'challengesObjects' => $challengesObjects,
 			'nbValidChallenges' => count($validChallenges),
 			'totalPoints' => $totalPoints,
+			'totalChallenges' => $totalChallenges,
 			'team' => $team,
 		));		
 	}

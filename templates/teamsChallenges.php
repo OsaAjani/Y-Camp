@@ -3,7 +3,7 @@
 	<h1><?php secho($team['name'] . ' - ' . $totalPoints . ' points'); ?></h1>
 
 	<div class="icons-top">
-		<?php echo $nbValidChallenges . '/' . (count($challengesPhotos) + count($challengesObjects)); ?>
+		<?php echo $nbValidChallenges . '/' . $totalChallenges; ?>
 	</div>
 	
 	<?php if (!count($challengesPhotos)) { ?>
@@ -14,7 +14,7 @@
 			<h2 class="col-xs-12">Défis Photos</h2>
 			<?php foreach ($challengesPhotos as $challenge) { ?>
 				<div class="info">
-					<span class="control col-xs-12" target="<?php secho($this->generateUrl('pictures', 'show', [$challenge['validated_id']])); ?>" target-id="challengesobjects-show"><?php echo '<span class="ion-ios-checkmark-empty check-valid-challenge"></span> ' . $challenge['points'] . ' pts - '; ?><?php secho(internalTools::limitWords($challenge['title'], 5)); ?></span>
+					<span class="control col-xs-12" target="<?php secho($this->generateUrl('pictures', 'show', [$challenge['validated_id']])); ?>" target-id="pictures-show"><?php echo '<span class="ion-ios-checkmark-empty check-valid-challenge"></span> ' . $challenge['points'] . ' pts - '; ?><?php secho(internalTools::limitWords($challenge['title'], 5)); ?></span>
 				</div>
 				<div class="clearfix"></div>
 			<?php } ?>
