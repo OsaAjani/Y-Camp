@@ -1,9 +1,9 @@
 <div id="teams-challenges" class="tile">
 	 <span class="go-back-arrow control ion-ios-arrow-thin-left" target="<?php secho($this->generateUrl('teams', 'show', [$team['id']])); ?>" target-id="teams-show" animation="slideInLeft" ></span>
-	<h1><?php secho($team['name']); ?></h1>
+	<h1><?php secho($team['name'] . ' - ' . $totalPoints . ' points'); ?></h1>
 
 	<div class="icons-top">
-		<?php echo $nbValidChallenges . '/' . (count($challengesPhotos) + count($challengesObjects)) . ' - (' . $totalPoints . ' pts)'; ?>
+		<?php echo $nbValidChallenges . '/' . (count($challengesPhotos) + count($challengesObjects)); ?>
 	</div>
 	
 	<?php if (!count($challengesPhotos)) { ?>

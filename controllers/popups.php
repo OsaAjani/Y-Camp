@@ -4,15 +4,6 @@
  */
 class popups extends Controller
 {
-	public function before ()
-	{
-		if (!isset($_SESSION['connected']) || !$_SESSION['connected'])
-		{
-			header('Location: ' . HTTP_PWD);
-			die();
-		}
-	}
-
 	/**
 	 * Page récupérant les popup à afficher
 	 */	
@@ -23,6 +14,12 @@ class popups extends Controller
 		$result = array(
 			'messages' => [],
 		);
+
+		if (!isset($_SESSION['connected']) || !$_SESSION['connected'])
+		{
+			echo json_encode($result);
+			return false;
+		}
 
 		$popups = $db->getPopupsForUser($_SESSION['user']['id']);
 

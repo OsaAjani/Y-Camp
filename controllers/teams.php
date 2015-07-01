@@ -147,7 +147,7 @@ class teams extends Controller
 
 		$challengesPhotos = $db->getFromTableWhere('challenges', ['kind' => 1]);
 		$challengesObjects = $db->getFromTableWhere('challenges', ['kind' => 0]);
-		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $_SESSION['user']['team_id']]);
+		$validChallenges = $db->getFromTableWhere('validated_challenges', ['team_id' => $teamId]);
 
 		$totalPoints = 0;
 		foreach ($challengesPhotos as $key => $challengePhoto)
