@@ -37,7 +37,7 @@
 		<div class="index-questions-reponse">
 			Nous nous tenons à disposition pour répondre à vos questions par téléphone : <br />
 			 Appelez le 0788201383 et dites "Pauline", <br />
-			 ou le 0682892888 et dites "Maud"<br />,
+			 ou le 0682892888 et dites "Maud", <br />
 			 ou le numéro complémentaire 0540012806 et dites "BootCamp".
 		</div>
 		<h3 class="index-questions-question">Je n'ai pas de connection internet ou mon débit est lent, que faire ?</h3>

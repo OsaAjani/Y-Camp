@@ -27,8 +27,15 @@ class users extends Controller
 		}
 		$user = $users[0];
 
-		$birthdate = new DateTime($users[0]['birthdate']);
-		$birthdate = $birthdate->format('d/m/Y');
+		if ($user['birthdate'] != '0000-00-00')
+		{
+			$birthdate = new DateTime($user['birthdate']);
+			$birthdate = $birthdate->format('d/m/Y');
+		}
+		else
+		{
+			$birthdate = 'Inconnue';
+		}
 
 		return $this->render("usersShow", array(
 			'user' => $user,
