@@ -62,6 +62,50 @@
 			echo $message;
 		}
 
+		public function redresse()
+		{
+			global $db;
+			$validatedChallenges = $db->getFromTableWhere('validated_challenges');
+			foreach ($validatedChallenges as $validatedChallenge)
+			{
+				if (!$validatedChallenge['document'])
+				{
+					continue;
+				}
+				echo "Analyse de l'image " . $validatedChallenge['document'] . "\n";
+				$image = new Imagick(PWD_IMG . 'challenges/' . $validatedChallenge['document']);
+				$imageCopy = new Imagick(PWD_IMG . 'challenges/poor_' . $validatedChallenge['document']);
+				$this->autoRotateImage($image, $imageCopy);
+				$image->writeImage(); 
+				$imageCopy->writeImage();
+				echo "Image " . $validatedChallenge['document'] . " redressee.\n";
+			}
+		}
+
+		private function autoRotateImage($image, $imageCopy = false) {
+		    $orientation = $image->getImageOrientation();
+
+		    switch($orientation) {
+			case imagick::ORIENTATION_BOTTOMRIGHT:
+			    $image->rotateimage("#000", 180); // rotate 180 degrees
+			    if ($imageCopy) { $imageCopy->rotateimage("#000", 180); }
+			break;
+
+			case imagick::ORIENTATION_RIGHTTOP:
+			    $image->rotateimage("#000", 90); // rotate 90 degrees CW
+			    if ($imageCopy) { $imageCopy->rotateimage("#000", 90); }
+			break;
+
+			case imagick::ORIENTATION_LEFTBOTTOM:
+			    $image->rotateimage("#000", -90); // rotate 90 degrees CCW
+			    if ($imageCopy) { $imageCopy->rotateimage("#000", -90); }
+			break;
+		    }
+
+		    // Now that it's auto-rotated, make sure the EXIF data is correct in case the EXIF gets saved with the image!
+		    $image->setImageOrientation(imagick::ORIENTATION_TOPLEFT);
+		}
+
 		/**
 		 * Cette fonction génère un objet PHP complet depuis un nom de table, et affiche cet objet
 		 * @return empty : 
